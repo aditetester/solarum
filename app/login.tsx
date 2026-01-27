@@ -8,16 +8,16 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Controller, SubmitHandler } from "react-hook-form";
 import {
-    Dimensions,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-    useColorScheme,
+  Dimensions,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  useColorScheme,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -74,13 +74,6 @@ export default function LoginScreen() {
                   contentFit="contain"
                 />
               </View>
-
-              <TouchableOpacity
-                style={styles.backButton}
-                onPress={() => router.back()}
-              >
-                <Ionicons name="arrow-back" size={24} color={theme.white} />
-              </TouchableOpacity>
             </SafeAreaView>
           </View>
 

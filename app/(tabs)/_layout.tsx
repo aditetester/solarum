@@ -6,8 +6,10 @@ import {
   ServiceIcon,
 } from "@/components/icons";
 import { Colors } from "@/constants/theme";
+import * as NavigationBar from "expo-navigation-bar";
 import { Tabs } from "expo-router";
-import React from "react";
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, useColorScheme } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -17,6 +19,16 @@ export default function TabLayout() {
   const insets = useSafeAreaInsets();
 
   const isDark = colorScheme === "dark";
+
+  useEffect(() => {
+    if (isDark) {
+      NavigationBar.setBackgroundColorAsync(theme.black);
+      NavigationBar.setButtonStyleAsync("light");
+    } else {
+      NavigationBar.setBackgroundColorAsync(theme.white);
+      NavigationBar.setButtonStyleAsync("dark");
+    }
+  }, [isDark, theme]);
 
   const TabItem = ({
     Icon,
@@ -50,90 +62,93 @@ export default function TabLayout() {
   };
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: theme.tint,
-        tabBarInactiveTintColor: theme.tabIconDefault,
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          height: 60 + insets.bottom,
-          paddingTop: 12,
-          backgroundColor: theme.background,
-          elevation: 0,
-          shadowOpacity: 0,
-          paddingHorizontal: 10,
-          paddingBottom: insets.bottom,
-          borderTopWidth: 0,
-        },
-      }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          tabBarIcon: ({ color, focused }) => (
-            <TabItem
-              Icon={HomeIcon}
-              label="Home"
-              focused={focused}
-              color={color}
-            />
-          ),
+    <>
+      <StatusBar style={isDark ? "light" : "dark"} />
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: theme.tint,
+          tabBarInactiveTintColor: theme.tabIconDefault,
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            height: 60 + insets.bottom,
+            paddingTop: 12,
+            backgroundColor: theme.background,
+            elevation: 0,
+            shadowOpacity: 0,
+            paddingHorizontal: 10,
+            paddingBottom: insets.bottom,
+            borderTopWidth: 0,
+          },
         }}
-      />
-      <Tabs.Screen
-        name="panel"
-        options={{
-          tabBarIcon: ({ color, focused }) => (
-            <TabItem
-              Icon={PanelIcon}
-              label="Panel"
-              focused={focused}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="service"
-        options={{
-          tabBarIcon: ({ color, focused }) => (
-            <TabItem
-              Icon={ServiceIcon}
-              label="Service"
-              focused={focused}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="report"
-        options={{
-          tabBarIcon: ({ color, focused }) => (
-            <TabItem
-              Icon={ReportIcon}
-              label="Report"
-              focused={focused}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          tabBarIcon: ({ color, focused }) => (
-            <TabItem
-              Icon={ProfileIcon}
-              label="Profile"
-              focused={focused}
-              color={color}
-            />
-          ),
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            tabBarIcon: ({ color, focused }) => (
+              <TabItem
+                Icon={HomeIcon}
+                label="Home"
+                focused={focused}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="panel"
+          options={{
+            tabBarIcon: ({ color, focused }) => (
+              <TabItem
+                Icon={PanelIcon}
+                label="Panel"
+                focused={focused}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="service"
+          options={{
+            tabBarIcon: ({ color, focused }) => (
+              <TabItem
+                Icon={ServiceIcon}
+                label="Service"
+                focused={focused}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="report"
+          options={{
+            tabBarIcon: ({ color, focused }) => (
+              <TabItem
+                Icon={ReportIcon}
+                label="Report"
+                focused={focused}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            tabBarIcon: ({ color, focused }) => (
+              <TabItem
+                Icon={ProfileIcon}
+                label="Profile"
+                focused={focused}
+                color={color}
+              />
+            ),
+          }}
+        />
+      </Tabs>
+    </>
   );
 }
 
