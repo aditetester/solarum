@@ -219,7 +219,6 @@ export default function OnboardingScreen() {
             />
           ))}
         </View>
-
         <TouchableOpacity
           style={[
             styles.button,
@@ -337,14 +336,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   button: {
-    width: "100%",
-    height: 55,
+    width: "60%",
+    height: 70,
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
+    borderTopLeftRadius: 18,
+    borderTopRightRadius: 18,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
   },
 });
