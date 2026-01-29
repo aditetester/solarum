@@ -1,5 +1,6 @@
 import { Colors } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
   Animated,
@@ -16,6 +17,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
+  const router = useRouter();
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme ?? "light"];
   const isDark = colorScheme === "dark";
@@ -31,6 +33,10 @@ export default function HomeScreen() {
     }).start();
 
     setIsOn(!isOn);
+  };
+
+  const handlenotifications = () => {
+    router.replace("/notifications");
   };
 
   return (
@@ -72,7 +78,8 @@ export default function HomeScreen() {
               style={[styles.searchInput, { color: theme.text }]}
             />
           </View>
-          <View
+          <TouchableOpacity
+            onPress={handlenotifications}
             style={[
               styles.notificationbox,
               {
@@ -86,7 +93,7 @@ export default function HomeScreen() {
               size={18}
               color={theme.placeholderlight}
             />
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* SOLAR CARD */}

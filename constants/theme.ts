@@ -5,7 +5,6 @@
 
 import { Platform } from "react-native";
 
-// Declare once - use many times
 const LIGHTBLUE = "#4BB2E1";
 const BLUE = "#1E4169";
 const MIDNIGHT = "#0F2034";
@@ -24,6 +23,10 @@ const RED = "#F44336";
 const BRIGHTRED = "#E53935";
 const ORANGE = "#FF9800";
 const GOLD = "#FFD700";
+const GREEN = "#4CAF50";
+const OPACITYGREEN: string = "rgba(12, 215, 43, 0.3)";
+const OPACITYBLUE: string = "rgba(13, 189, 216, 0.3)";
+const OPACITYRED: string = "rgba(229, 9, 9, 0.3)";
 
 const light = {
   lightblue: LIGHTBLUE,
@@ -44,6 +47,10 @@ const light = {
   brightred: BRIGHTRED,
   orange: ORANGE,
   gold: GOLD,
+  green: GREEN,
+  opacitygreen: OPACITYGREEN,
+  opacityblue: OPACITYBLUE,
+  opacityred: OPACITYRED,
   // Standard functional mappings for compatibility
   text: BLACK,
   background: WHITE,
@@ -72,6 +79,10 @@ const dark = {
   brightred: BRIGHTRED,
   orange: ORANGE,
   gold: GOLD,
+  green: GREEN,
+  opacitygreen: OPACITYGREEN,
+  opacityblue: OPACITYBLUE,
+  opacityred: OPACITYRED,
   // Standard functional mappings for compatibility
   text: WHITE,
   background: BLACK,
