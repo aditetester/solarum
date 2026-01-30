@@ -6,6 +6,7 @@
 import { Platform } from "react-native";
 
 const LIGHTBLUE = "#4BB2E1";
+const SYSTEMBLUE = "#2B759C";
 const BLUE = "#1E4169";
 const MIDNIGHT = "#0F2034";
 const WHITE = "#FFFFFF";
@@ -27,6 +28,7 @@ const GREEN = "#4CAF50";
 const OPACITYGREEN: string = "rgba(12, 215, 43, 0.3)";
 const OPACITYBLUE: string = "rgba(13, 189, 216, 0.3)";
 const OPACITYRED: string = "rgba(229, 9, 9, 0.3)";
+const OPACITYWHITE: string = "rgba(255, 255, 255, 0.2)";
 
 const light = {
   lightblue: LIGHTBLUE,
@@ -51,6 +53,8 @@ const light = {
   opacitygreen: OPACITYGREEN,
   opacityblue: OPACITYBLUE,
   opacityred: OPACITYRED,
+  opacitywhite: OPACITYWHITE,
+  systemblue: SYSTEMBLUE,
   // Standard functional mappings for compatibility
   text: BLACK,
   background: WHITE,
@@ -83,6 +87,8 @@ const dark = {
   opacitygreen: OPACITYGREEN,
   opacityblue: OPACITYBLUE,
   opacityred: OPACITYRED,
+  opacitywhite: OPACITYWHITE,
+  systemblue: SYSTEMBLUE,
   // Standard functional mappings for compatibility
   text: WHITE,
   background: BLACK,

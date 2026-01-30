@@ -12,7 +12,6 @@ import {
   useColorScheme,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const PANEL_SUMMARY = {
   title: "All 32 panel are online",
@@ -54,13 +53,24 @@ const PANELS_DATA = [
   },
 ];
 
-/* ================= SCREEN ================= */
-
 export default function PanelScreen() {
   const scheme = useColorScheme();
   const theme = Colors[scheme ?? "light"];
   const isDark = scheme === "dark";
   const router = useRouter();
+
+  const handlePanelInfo = (item: any) => {
+    router.push({
+      pathname: "/panel-info",
+      params: {
+        id: item.id,
+        name: item.name,
+        efficiency: item.efficiency,
+        power: item.power,
+        status: item.status,
+      },
+    });
+  };
 
   const getStatusColor = (key: string) => {
     switch (key) {
@@ -76,187 +86,213 @@ export default function PanelScreen() {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
-      <ScrollView contentContainerStyle={styles.content}>
-        {/* ===== HEADER ===== */}
-        <View style={styles.appHeader}>
-          {/* <TouchableOpacity onPress={() => router.back()}>
+    <ScrollView contentContainerStyle={styles.content}>
+      {/* ===== HEADER ===== */}
+      <View style={styles.appHeader}>
+        {/* <TouchableOpacity onPress={() => router.back()}>
             <Ionicons name="arrow-back" size={24} color={theme.text} />
           </TouchableOpacity> */}
-          <Text style={[styles.appHeaderTitle, { color: theme.text }]}>
-            Panel
-          </Text>
-          <View style={{ width: 24 }} />
+        <Text style={[styles.appHeaderTitle, { color: theme.text }]}>
+          Panel
+        </Text>
+        <View style={{ width: 24 }} />
+      </View>
+      {/* ===== SUMMARY CARD ===== */}
+      <View
+        style={[
+          styles.summaryCard,
+          { backgroundColor: isDark ? theme.lightblue : theme.blue },
+        ]}
+      >
+        <View style={styles.summaryContent}>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.summaryTitle, { color: theme.white }]}>
+              {PANEL_SUMMARY.title}
+            </Text>
+            <Text style={[styles.summaryDesc, { color: theme.white }]}>
+              {PANEL_SUMMARY.desc}
+            </Text>
+          </View>
+          <Image
+            source={require("@/assets/images/panel/header.png")}
+            style={styles.summaryImage}
+            resizeMode="contain"
+          />
         </View>
-        {/* ===== SUMMARY CARD ===== */}
+      </View>
+      {/* ===== LIST HEADER ===== */}
+      <View style={styles.sectionHeader}>
+        <Text style={[styles.sectionTitle, { color: theme.text }]}>Panels</Text>
+        <Text style={{ color: theme.systemgray, fontSize: 13 }}>Total 32</Text>
+      </View>
+      {/* ===== PANEL LIST ===== */}
+      {PANELS_DATA.map((item, index) => (
+        <TouchableOpacity
+          key={item.id}
+          onPress={() => handlePanelInfo(item)}
+          style={[
+            styles.panelRow,
+            { backgroundColor: isDark ? theme.carddark : theme.cardlight },
+          ]}
+        >
+          <View
+            style={[
+              styles.panelImageContainer,
+              {
+                backgroundColor: isDark ? theme.black : theme.white,
+                borderColor: theme.systemgray,
+              },
+            ]}
+          >
+            <Image
+              source={require("@/assets/images/panel/panel.png")}
+              style={styles.panelIcon}
+              resizeMode="contain"
+            />
+          </View>
+
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.panelName, { color: theme.text }]}>
+              {item.name}
+            </Text>
+            <Text style={[styles.panelEfficiency, { color: theme.systemgray }]}>
+              Efficiency {item.efficiency}
+            </Text>
+          </View>
+
+          <View style={styles.rightBlock}>
+            <Text
+              style={[styles.status, { color: getStatusColor(item.statusKey) }]}
+            >
+              {item.status}
+            </Text>
+            <View style={styles.leftBlock}>
+              <EnergyIcon size={16} color={theme.gold} fill={theme.gold} />
+              <Text style={[styles.leftBlockText, { color: theme.systemgray }]}>
+                {item.power}
+              </Text>
+            </View>
+          </View>
+
+          <View
+            style={[
+              styles.chevronContainer,
+              {
+                backgroundColor: isDark ? theme.black : theme.white,
+                borderColor: theme.systemgray,
+              },
+            ]}
+          >
+            <Ionicons
+              name="chevron-forward"
+              size={16}
+              color={theme.systemgray}
+            />
+          </View>
+        </TouchableOpacity>
+      ))}
+
+      {/* ===== FEATURED SECTION ===== */}
+      <View style={[styles.sectionHeader, { marginTop: 24 }]}>
+        <Text style={[styles.sectionTitle, { color: theme.text }]}>
+          Panels you may like
+        </Text>
+      </View>
+
+      <View style={styles.recommendCardContainer}>
         <View
           style={[
-            styles.summaryCard,
+            styles.recommendCard,
             { backgroundColor: isDark ? theme.lightblue : theme.blue },
           ]}
         >
-          <View style={styles.summaryContent}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.summaryTitle}>{PANEL_SUMMARY.title}</Text>
-              <Text style={styles.summaryDesc}>{PANEL_SUMMARY.desc}</Text>
+          {/* ===== LEFT CONTENT ===== */}
+          <View style={styles.recommendLeft}>
+            {/* TITLE + POWER (ONE LINE) */}
+            <View style={styles.titleRow}>
+              <Text style={[styles.recommendTitle, { color: theme.white }]}>
+                MicroSolar Mini-Panel
+              </Text>
+              <Text style={[styles.recommendPower, { color: theme.white }]}>
+                150W
+              </Text>
             </View>
+
+            {/* FEATURES */}
+            <View style={styles.featureItem}>
+              <Ionicons name="checkmark" size={12} color={theme.white} />
+              <Text style={[styles.featureText, { color: theme.white }]}>
+                Small Size Panel
+              </Text>
+            </View>
+            <View style={styles.featureItem}>
+              <Ionicons name="checkmark" size={12} color={theme.white} />
+              <Text style={[styles.featureText, { color: theme.white }]}>
+                Ideal for tinny house
+              </Text>
+            </View>
+
+            {/* PRICE */}
+            <Text style={[styles.price, { color: theme.white }]}>
+              ₹ 1000 / Panel
+            </Text>
+
+            {/* BUTTON */}
+            <TouchableOpacity
+              style={[
+                styles.viewButton,
+                {
+                  borderColor: theme.white,
+                  backgroundColor: theme.opacitywhite,
+                },
+              ]}
+            >
+              <Text style={[styles.viewButtonText, { color: theme.white }]}>
+                View Details
+              </Text>
+              <Ionicons
+                name="share-outline"
+                size={14}
+                color={theme.white}
+                style={{ marginLeft: 6, transform: [{ rotate: "45deg" }] }}
+              />
+            </TouchableOpacity>
+          </View>
+
+          {/* ===== RIGHT IMAGE ===== */}
+          <View style={styles.recommendRight}>
+            {/* ARROW ON IMAGE */}
+            <View style={styles.imageArrow}>
+              <Ionicons name="chevron-forward" size={20} color={theme.white} />
+            </View>
+
             <Image
-              source={require("@/assets/images/panel/header.png")}
-              style={styles.summaryImage}
+              source={require("@/assets/images/panel/home.png")}
+              style={styles.houseImage}
               resizeMode="contain"
             />
           </View>
         </View>
-        {/* ===== LIST HEADER ===== */}
-        <View style={styles.sectionHeader}>
-          <Text style={[styles.sectionTitle, { color: theme.text }]}>
-            Panels
-          </Text>
-          <Text style={{ color: theme.systemgray, fontSize: 13 }}>
-            Total 32
-          </Text>
-        </View>
-        {/* ===== PANEL LIST ===== */}
-        {PANELS_DATA.map((item, index) => (
-          <TouchableOpacity
-            key={item.id}
-            onPress={() => router.push("/panel-info")}
-            style={[
-              styles.panelRow,
-              { backgroundColor: isDark ? theme.carddark : theme.cardlight },
-            ]}
-          >
-            <View
-              style={[
-                styles.panelImageContainer,
-                {
-                  backgroundColor: isDark ? theme.black : theme.white,
-                  borderColor: theme.systemgray,
-                },
-              ]}
-            >
-              <Image
-                source={require("@/assets/images/panel/panel.png")}
-                style={styles.panelIcon}
-                resizeMode="contain"
-              />
-            </View>
-
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.panelName, { color: theme.text }]}>
-                {item.name}
-              </Text>
-              <Text style={styles.panelEfficiency}>
-                Efficiency {item.efficiency}
-              </Text>
-            </View>
-
-            <View style={styles.rightBlock}>
-              <Text
-                style={[
-                  styles.status,
-                  { color: getStatusColor(item.statusKey) },
-                ]}
-              >
-                {item.status}
-              </Text>
-              <View style={styles.leftBlock}>
-                <EnergyIcon size={16} color={theme.gold} fill={theme.gold} />
-                <Text
-                  style={[styles.leftBlockText, { color: theme.systemgray }]}
-                >
-                  {item.power}
-                </Text>
-              </View>
-            </View>
-
-            <View
-              style={[
-                styles.chevronContainer,
-                {
-                  backgroundColor: isDark ? theme.black : theme.white,
-                  borderColor: theme.systemgray,
-                },
-              ]}
-            >
-              <Ionicons
-                name="chevron-forward"
-                size={16}
-                color={theme.systemgray}
-              />
-            </View>
-          </TouchableOpacity>
-        ))}
-        ===== FEATURED SECTION =====
-        <View style={[styles.sectionHeader, { marginTop: 20 }]}>
-          <Text style={[styles.sectionTitle, { color: theme.text }]}>
-            Panels you may like
-          </Text>
-        </View>
-        <View style={styles.recommendCardContainer}>
-          <View style={[styles.recommendCard, { backgroundColor: theme.blue }]}>
-            <View style={{ flex: 1 }}>
-              {/* TITLE + ARROW */}
-              <View style={styles.recommendTitleRow}>
-                <Text style={styles.recommendTitle}>MicroSolar Mini-Panel</Text>
-
-                <Ionicons
-                  name="chevron-forward"
-                  size={18}
-                  color={theme.white}
-                />
-              </View>
-
-              {/* POWER */}
-              <Text style={styles.recommendPower}>150W</Text>
-
-              {/* FEATURES */}
-              <Text style={styles.feature}>✓ Small Size Panel</Text>
-              <Text style={styles.feature}>✓ Ideal for tiny house</Text>
-
-              {/* PRICE */}
-              <Text style={styles.price}>₹ 1000 / Panel</Text>
-
-              {/* BUTTON */}
-              <TouchableOpacity style={styles.viewButton}>
-                <Text style={styles.viewButtonText}>View Details ↗</Text>
-              </TouchableOpacity>
-            </View>
-
-            {/* Right Image Placeholder */}
-            <View style={styles.houseImageContainer}>
-              <Image
-                style={styles.houseImage}
-                source={require("@/assets/images/panel/home.png")}
-              />
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScrollView>
   );
 }
 
-/* ================= STYLES ================= */
-
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  content: { padding: 16, paddingBottom: 100 },
-
+  content: {
+    padding: 16,
+  },
   appHeader: {
     flexDirection: "row",
     alignItems: "center",
-    // justifyContent: "space-between",
     justifyContent: "center",
     marginBottom: 20,
   },
   appHeaderTitle: {
+    marginTop: 24,
     fontSize: 18,
     fontWeight: "600",
   },
-
   summaryCard: {
     height: 120,
     marginBottom: 24,
@@ -268,20 +304,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 16,
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.1)", // Subtle overlay
   },
   summaryTitle: {
-    color: "#fff",
     fontSize: 16,
     fontWeight: "700",
     marginBottom: 8,
   },
   summaryDesc: {
-    color: "#fff",
     fontSize: 12,
     lineHeight: 16,
-    opacity: 0.9,
-    width: "80%",
   },
   summaryImage: {
     width: 100,
@@ -324,7 +355,6 @@ const styles = StyleSheet.create({
   },
   panelEfficiency: {
     fontSize: 12,
-    color: "#777",
     marginTop: 2,
   },
   rightBlock: {
@@ -356,59 +386,78 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 16,
-  },
-  recommendCard: {
-    flexDirection: "row",
-    padding: 16,
-    borderRadius: 14,
-    marginTop: 12,
   },
   recommendTitleRow: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
+    marginBottom: 12,
   },
-  recommendTitle: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "600",
+  featureItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 6,
   },
-  recommendPower: {
-    color: "#fff",
-    fontSize: 13,
-    marginBottom: 8,
-  },
-  feature: {
-    color: "#EAF6FF",
+  featureText: {
     fontSize: 12,
-    marginBottom: 2,
+    marginLeft: 6,
   },
   price: {
-    color: "#fff",
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: "600",
-    marginTop: 6,
+    marginTop: 8,
+    marginBottom: 12,
   },
   viewButton: {
-    marginTop: 10,
-    backgroundColor: "rgba(255,255,255,0.25)",
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    borderWidth: 1,
     alignSelf: "flex-start",
   },
   viewButtonText: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "500",
+    fontSize: 14,
+    fontWeight: "600",
   },
-  houseImageContainer: {
+  recommendCard: {
+    flexDirection: "row",
+    borderRadius: 14,
+    padding: 16,
+    overflow: "hidden",
+  },
+  recommendLeft: {
+    flex: 1,
+    justifyContent: "space-between",
+  },
+  titleRow: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginBottom: 6,
+  },
+  recommendTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+  },
+  recommendPower: {
+    fontSize: 15,
+    fontWeight: "700",
+  },
+  recommendRight: {
+    width: 150,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-end",
+    position: "relative",
+  },
+  imageArrow: {
+    position: "absolute",
+    top: 4,
+    right: 4,
+    zIndex: 10,
   },
   houseImage: {
-    width: 130,
-    height: 130,
+    width: 140,
+    height: 140,
   },
 });
