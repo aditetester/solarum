@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  Switch,
   Text,
   TouchableOpacity,
   useColorScheme,
@@ -55,8 +56,7 @@ export default function ProfileScreen() {
           style={[
             styles.profileCard,
             {
-              backgroundColor: isDark ? theme.carddark : theme.cardlight,
-              borderColor: isDark ? theme.borderdark : theme.borderlight,
+              borderColor: theme.systemgray,
             },
           ]}
           onPress={() => router.push("/edit-profile")}
@@ -71,10 +71,10 @@ export default function ProfileScreen() {
             </Text>
             <Text style={{ color: theme.systemgray }}>{profile.email}</Text>
           </View>
-          <Ionicons name="chevron-forward" size={20} color={theme.systemgray} />
+          <Ionicons name="chevron-forward" size={20} color={theme.text} />
         </TouchableOpacity>
 
-        <Text style={[styles.sectionTitle, { color: theme.systemgray }]}>
+        <Text style={[styles.sectionTitle, { color: theme.text }]}>
           Other Settings
         </Text>
 
@@ -84,8 +84,7 @@ export default function ProfileScreen() {
             style={[
               styles.row,
               {
-                backgroundColor: isDark ? theme.carddark : theme.cardlight,
-                borderColor: isDark ? theme.borderdark : theme.borderlight,
+                borderColor: theme.systemgray,
               },
             ]}
             onPress={() =>
@@ -93,7 +92,19 @@ export default function ProfileScreen() {
             }
           >
             <View style={styles.rowLeft}>
-              <Ionicons name={item.icon} size={20} color={theme.lightblue} />
+              <Ionicons
+                name={item.icon}
+                size={20}
+                color={theme.white}
+                style={[
+                  styles.icon,
+                  {
+                    backgroundColor: isDark
+                      ? theme.lightblue
+                      : theme.systemblue,
+                  },
+                ]}
+              />
               <Text style={[styles.rowText, { color: theme.text }]}>
                 {item.label}
               </Text>
@@ -106,10 +117,52 @@ export default function ProfileScreen() {
           </TouchableOpacity>
         ))}
 
-        <TouchableOpacity
-          style={[styles.logoutBtn, { backgroundColor: theme.systemblue }]}
+        {/* THEME MODE */}
+        <View
+          style={[
+            styles.row,
+            {
+              borderColor: theme.systemgray,
+            },
+          ]}
         >
-          <Text style={styles.logoutText}>Log Out</Text>
+          <View style={styles.rowLeft}>
+            <Ionicons
+              name={isDark ? "moon-outline" : "sunny-outline"}
+              size={20}
+              color={theme.white}
+              style={[
+                styles.icon,
+                {
+                  backgroundColor: isDark ? theme.lightblue : theme.systemblue,
+                },
+              ]}
+            />
+            <Text style={[styles.rowText, { color: theme.text }]}>
+              {isDark ? "Dark Mode" : "Light Mode"}
+            </Text>
+          </View>
+
+          <Switch
+            value={isDark}
+            disabled
+            trackColor={{
+              false: theme.systemgray,
+              true: theme.lightblue,
+            }}
+            thumbColor={theme.white}
+          />
+        </View>
+
+        <TouchableOpacity
+          style={[
+            styles.logoutBtn,
+            { backgroundColor: isDark ? theme.systemblue : theme.blue },
+          ]}
+        >
+          <Text style={[styles.logoutText, { color: theme.white }]}>
+            Log Out
+          </Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -117,7 +170,9 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -127,8 +182,13 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 12,
   },
-  headerTitle: { fontSize: 18, fontWeight: "700" },
-  content: { padding: 16 },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+  },
+  content: {
+    padding: 16,
+  },
   profileCard: {
     flexDirection: "row",
     alignItems: "center",
@@ -137,9 +197,20 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 24,
   },
-  avatar: { width: 48, height: 48, borderRadius: 24, marginRight: 12 },
-  name: { fontSize: 16, fontWeight: "700" },
-  sectionTitle: { fontSize: 13, marginBottom: 10 },
+  avatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    marginRight: 12,
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: "700",
+  },
+  sectionTitle: {
+    fontSize: 13,
+    marginBottom: 10,
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -149,13 +220,26 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
   },
-  rowLeft: { flexDirection: "row", alignItems: "center", gap: 12 },
-  rowText: { fontSize: 14, fontWeight: "500" },
+  icon: {
+    padding: 8,
+    borderRadius: 4,
+  },
+  rowLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  rowText: {
+    fontSize: 14,
+    fontWeight: "500",
+  },
   logoutBtn: {
     marginTop: 24,
     paddingVertical: 14,
     borderRadius: 10,
     alignItems: "center",
   },
-  logoutText: { color: "#fff", fontWeight: "700" },
+  logoutText: {
+    fontWeight: "700",
+  },
 });
