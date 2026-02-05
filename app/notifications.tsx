@@ -5,6 +5,7 @@ import {
   ServiceIcon,
 } from "@/components/icons";
 import { Colors } from "@/constants/theme";
+import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -13,7 +14,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -85,9 +85,8 @@ const notificationsYesterday = [
 ];
 
 export default function NotificationsScreen() {
-  const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme ?? "light"];
-  const isDark = colorScheme === "dark";
+  const { theme: themeName, isDark } = useTheme();
+  const theme = Colors[themeName];
   const router = useRouter();
 
   const getIcon = (name: string) => {

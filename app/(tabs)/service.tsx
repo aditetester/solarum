@@ -1,16 +1,16 @@
 import { Colors } from "@/constants/theme";
+import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    Dimensions,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 type IoniconName = React.ComponentProps<typeof Ionicons>["name"];
@@ -85,9 +85,8 @@ const SCREEN_WIDTH = Dimensions.get("window").width;
 const CARD_WIDTH = SCREEN_WIDTH - 32;
 
 export default function ServiceScreen() {
-  const scheme = useColorScheme();
-  const theme = Colors[scheme ?? "light"];
-  const isDark = scheme === "dark";
+  const { theme: themeName, isDark } = useTheme();
+  const theme = Colors[themeName];
   const router = useRouter();
 
   const [activeIndex, setActiveIndex] = useState(0);

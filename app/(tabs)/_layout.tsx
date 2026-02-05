@@ -6,19 +6,18 @@ import {
   ServiceIcon,
 } from "@/components/icons";
 import { Colors } from "@/constants/theme";
+import { useTheme } from "@/context/ThemeContext";
 import * as NavigationBar from "expo-navigation-bar";
 import { Tabs } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, useColorScheme } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme ?? "light"];
+  const { theme: themeName, isDark } = useTheme();
+  const theme = Colors[themeName];
   const insets = useSafeAreaInsets();
-
-  const isDark = colorScheme === "dark";
 
   useEffect(() => {
     if (isDark) {

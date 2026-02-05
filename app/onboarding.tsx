@@ -6,16 +6,16 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 
+import { useTheme } from "@/context/ThemeContext";
 import {
-  Dimensions,
-  FlatList,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  useColorScheme,
+    Dimensions,
+    FlatList,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 const { width, height } = Dimensions.get("window");
@@ -48,9 +48,8 @@ const ONBOARDING_DATA = [
 ];
 
 export default function OnboardingScreen() {
-  const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme ?? "light"];
-  const isDark = colorScheme === "dark";
+  const { theme: themeName, isDark } = useTheme();
+  const theme = Colors[themeName];
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);

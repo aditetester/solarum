@@ -1,5 +1,6 @@
 import { EnergyIcon } from "@/components/icons";
 import { Colors } from "@/constants/theme";
+import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
@@ -9,7 +10,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from "react-native";
 
@@ -54,9 +54,8 @@ const PANELS_DATA = [
 ];
 
 export default function PanelScreen() {
-  const scheme = useColorScheme();
-  const theme = Colors[scheme ?? "light"];
-  const isDark = scheme === "dark";
+  const { theme: themeName, isDark } = useTheme();
+  const theme = Colors[themeName];
   const router = useRouter();
 
   const handlePanelInfo = (item: any) => {

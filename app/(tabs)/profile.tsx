@@ -1,16 +1,16 @@
 import { Colors } from "@/constants/theme";
 import { useProfile } from "@/context/ProfileContext";
+import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
+  Animated,
   Image,
   ScrollView,
   StyleSheet,
-  Switch,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from "react-native";
 
@@ -31,22 +31,25 @@ const PROFILE_ITEMS: Item[] = [
 ];
 
 export default function ProfileScreen() {
-  const scheme = useColorScheme();
-  const theme = Colors[scheme ?? "light"];
-  const isDark = scheme === "dark";
+  const { theme: themeName, isDark, toggleTheme } = useTheme();
+  const theme = Colors[themeName];
   const router = useRouter();
   const { profile } = useProfile();
+
+  const translateX = useRef(new Animated.Value(isDark ? 28 : 2)).current;
+
+  useEffect(() => {
+    Animated.spring(translateX, {
+      toValue: isDark ? 28 : 2,
+      useNativeDriver: true,
+      bounciness: 4,
+    }).start();
+  }, [isDark, translateX]);
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       {/* HEADER */}
       <View style={styles.header}>
-        {/* <Ionicons
-          name="arrow-back"
-          size={22}
-          color={theme.text}
-          onPress={() => router.back()}
-        /> */}
         <Text style={[styles.headerTitle, { color: theme.text }]}>Profile</Text>
       </View>
 
@@ -56,7 +59,8 @@ export default function ProfileScreen() {
           style={[
             styles.profileCard,
             {
-              borderColor: theme.systemgray,
+              borderColor: isDark ? theme.borderdark : theme.borderlight,
+              backgroundColor: isDark ? theme.carddark : theme.cardlight,
             },
           ]}
           onPress={() => router.push("/edit-profile")}
@@ -84,7 +88,8 @@ export default function ProfileScreen() {
             style={[
               styles.row,
               {
-                borderColor: theme.systemgray,
+                borderColor: isDark ? theme.borderdark : theme.borderlight,
+                backgroundColor: isDark ? theme.carddark : theme.cardlight,
               },
             ]}
             onPress={() =>
@@ -122,13 +127,14 @@ export default function ProfileScreen() {
           style={[
             styles.row,
             {
-              borderColor: theme.systemgray,
+              borderColor: isDark ? theme.borderdark : theme.borderlight,
+              backgroundColor: isDark ? theme.carddark : theme.cardlight,
             },
           ]}
         >
           <View style={styles.rowLeft}>
             <Ionicons
-              name={isDark ? "moon-outline" : "sunny-outline"}
+              name={isDark ? "sunny-outline" : "moon-outline"}
               size={20}
               color={theme.white}
               style={[
@@ -139,19 +145,41 @@ export default function ProfileScreen() {
               ]}
             />
             <Text style={[styles.rowText, { color: theme.text }]}>
-              {isDark ? "Dark Mode" : "Light Mode"}
+              {isDark ? "Light Mode" : "Dark Mode"}
             </Text>
           </View>
 
-          <Switch
-            value={isDark}
-            disabled
-            trackColor={{
-              false: theme.systemgray,
-              true: theme.lightblue,
-            }}
-            thumbColor={theme.white}
-          />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={toggleTheme}
+            style={[
+              styles.customToggle,
+              { backgroundColor: isDark ? theme.lightblue : theme.systemgray },
+            ]}
+          >
+            <View style={styles.toggleIcons}>
+              <Ionicons
+                name="sunny-outline"
+                size={14}
+                color={theme.white}
+                style={{ opacity: isDark ? 1 : 0 }}
+              />
+              <Ionicons
+                name="moon-outline"
+                size={14}
+                color={theme.white}
+                style={{ opacity: isDark ? 0 : 1 }}
+              />
+            </View>
+            <Animated.View
+              style={[
+                styles.toggleThumb,
+                {
+                  transform: [{ translateX }],
+                },
+              ]}
+            />
+          </TouchableOpacity>
         </View>
 
         <TouchableOpacity
@@ -241,5 +269,25 @@ const styles = StyleSheet.create({
   },
   logoutText: {
     fontWeight: "700",
+  },
+  customToggle: {
+    width: 52,
+    height: 26,
+    borderRadius: 13,
+    justifyContent: "center",
+    paddingHorizontal: 4,
+  },
+  toggleIcons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 4,
+  },
+  toggleThumb: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: "#FFFFFF",
+    position: "absolute",
   },
 });

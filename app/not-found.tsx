@@ -1,11 +1,12 @@
 import { Colors } from "@/constants/theme";
+import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import { StyleSheet, Text, useColorScheme, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function NotFoundScreen() {
-  const scheme = useColorScheme();
-  const theme = Colors[scheme ?? "light"];
+  const { theme: themeName } = useTheme();
+  const theme = Colors[themeName];
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>

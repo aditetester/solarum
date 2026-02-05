@@ -5,25 +5,24 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { useTheme } from "@/context/ThemeContext";
 import {
-  Alert,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    Alert,
+    Image,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 export default function EditProfileScreen() {
   const insets = useSafeAreaInsets();
-  const scheme = useColorScheme();
-  const theme = Colors[scheme ?? "light"];
-  const isDark = scheme === "dark";
+  const { theme: themeName, isDark } = useTheme();
+  const theme = Colors[themeName];
   const router = useRouter();
 
   const { profile: savedProfile, updateProfile } = useProfile();

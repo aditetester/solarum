@@ -1,5 +1,6 @@
 import { EnergyIcon, GridIcon, HomeIcon, SolarIcon } from "@/components/icons";
 import { Colors } from "@/constants/theme";
+import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
@@ -9,7 +10,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
   View,
 } from "react-native";
 import Svg, { Circle, Defs, Marker, Path } from "react-native-svg";
@@ -17,9 +17,8 @@ import Svg, { Circle, Defs, Marker, Path } from "react-native-svg";
 const { width } = Dimensions.get("window");
 
 export default function ReportScreen() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === "dark";
-  const theme = Colors[isDark ? "dark" : "light"];
+  const { theme: themeName, isDark } = useTheme();
+  const theme = Colors[themeName];
   const [activeTab, setActiveTab] = useState("Daily");
 
   const renderTab = (label: string) => (

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Colors } from "@/constants/theme";
+import { useTheme } from "@/context/ThemeContext";
 import { LoginFormData, useLoginForm } from "@/hooks/useLoginForm";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
@@ -8,26 +9,24 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Controller, SubmitHandler } from "react-hook-form";
 import {
-  Dimensions,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  useColorScheme,
+    Dimensions,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const { width, height } = Dimensions.get("window");
 
 export default function LoginScreen() {
-  const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme ?? "light"];
+  const { theme: themeName, isDark } = useTheme();
+  const theme = Colors[themeName];
   const router = useRouter();
-  const isDark = colorScheme === "dark";
 
   const { control, handleSubmit, errors } = useLoginForm();
 

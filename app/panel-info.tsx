@@ -1,16 +1,16 @@
 import { EnergyIcon } from "@/components/icons";
 import { Colors } from "@/constants/theme";
+import { useTheme } from "@/context/ThemeContext";
 import { AntDesign, Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useColorScheme,
-  View,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -73,9 +73,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 // );
 
 export default function PanelInfoScreen() {
-  const scheme = useColorScheme();
-  const theme = Colors[scheme ?? "light"];
-  const isDark = scheme === "dark";
+  const { theme: themeName, isDark } = useTheme();
+  const theme = Colors[themeName];
   const router = useRouter();
 
   const STATS = [
