@@ -21,7 +21,7 @@ type Item = {
 };
 
 const PROFILE_ITEMS: Item[] = [
-  { label: "Blog", icon: "document-text-outline", route: "/blog" },
+  { label: "Blog", icon: "document-text-outline", route: "/blogs" },
   { label: "Feedback", icon: "chatbox-ellipses-outline", route: "/feedback" },
   { label: "Bill", icon: "receipt-outline", route: "/bill" },
   { label: "Language", icon: "language-outline", route: "/language" },

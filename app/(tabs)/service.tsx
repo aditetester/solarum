@@ -1,7 +1,8 @@
+import { BlogCard } from "@/components/BlogCard";
+import { BLOGS } from "@/constants/blogs";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
     Dimensions,
@@ -45,41 +46,7 @@ const HERO_SLIDES = [
   },
 ];
 
-const BLOGS = [
-  {
-    id: "1",
-    title: "Solar for a Better Tomorrow",
-    desc: "Solar panels convert sunlight into electricity helping reduce power bills.",
-    image: require("@/assets/images/service/blog-1.png"),
-    author: "Julius Cooper",
-    authorImage: require("@/assets/images/panel/people-1.png"),
-    authorPosition: "CEO, Solarum",
-    date: "25 Dec, 2025",
-    time: "1 hr ago",
-  },
-  {
-    id: "2",
-    title: "Go Green with Solar Energy",
-    desc: "Solar power provides renewable and sustainable energy for homes.",
-    image: require("@/assets/images/service/blog-2.png"),
-    author: "lusi jofer",
-    authorImage: require("@/assets/images/panel/people-2.png"),
-    authorPosition: "Manager, Solarum",
-    date: "24 Dec, 2025",
-    time: "3 hr ago",
-  },
-  {
-    id: "3",
-    title: "Save More with Solar",
-    desc: "Switch to solar and enjoy long-term savings with clean energy.",
-    image: require("@/assets/images/service/blog-3.png"),
-    author: "john doe",
-    authorImage: require("@/assets/images/panel/people-3.png"),
-    authorPosition: "Engineer, Solarum",
-    date: "23 Dec, 2025",
-    time: "1 day ago",
-  },
-];
+// Shared BLOGS data is now imported from @/constants/blogs
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const CARD_WIDTH = SCREEN_WIDTH - 32;
@@ -87,7 +54,6 @@ const CARD_WIDTH = SCREEN_WIDTH - 32;
 export default function ServiceScreen() {
   const { theme: themeName, isDark } = useTheme();
   const theme = Colors[themeName];
-  const router = useRouter();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -109,20 +75,7 @@ export default function ServiceScreen() {
     return () => clearInterval(interval);
   }, [activeIndex]);
 
-  const openBlog = (blog: any) => {
-    router.push({
-      pathname: "/blog",
-      params: {
-        title: blog.title,
-        desc: blog.desc,
-        author: blog.author,
-        authorImage: blog.authorImage,
-        authorPosition: blog.authorPosition,
-        date: blog.date,
-        image: blog.id,
-      },
-    });
-  };
+  // Navigation logic is now handled inside BlogCard component
 
   return (
     <View style={styles.container}>
@@ -240,35 +193,7 @@ export default function ServiceScreen() {
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {BLOGS.map((blog) => (
-            <TouchableOpacity
-              key={blog.id}
-              onPress={() => openBlog(blog)}
-              style={[
-                styles.blogCard,
-                { backgroundColor: isDark ? theme.carddark : theme.cardlight },
-              ]}
-            >
-              <Image source={blog.image} style={styles.blogImage} />
-              <Text style={[styles.blogTitle, { color: theme.text }]}>
-                {blog.title}
-              </Text>
-              <Text style={[styles.blogDesc, { color: theme.systemgray }]}>
-                {blog.desc}
-              </Text>
-              <View style={styles.blogFooter}>
-                <Text style={[styles.blogTime, { color: theme.systemgray }]}>
-                  {blog.time}
-                </Text>
-                <Text
-                  style={[
-                    styles.readMore,
-                    { color: theme.blue, borderBottomColor: theme.blue },
-                  ]}
-                >
-                  Read more...
-                </Text>
-              </View>
-            </TouchableOpacity>
+            <BlogCard key={blog.id} blog={blog} layout="compact" />
           ))}
         </ScrollView>
       </ScrollView>

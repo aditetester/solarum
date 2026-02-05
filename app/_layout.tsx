@@ -28,6 +28,7 @@ function RootLayoutContent() {
           <Stack.Screen name="notifications" options={{ headerShown: false }} />
           <Stack.Screen name="panel-info" options={{ headerShown: false }} />
           <Stack.Screen name="blog" options={{ headerShown: false }} />
+          <Stack.Screen name="blogs" options={{ headerShown: false }} />
           <Stack.Screen name="edit-profile" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
