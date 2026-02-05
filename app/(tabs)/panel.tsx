@@ -95,7 +95,7 @@ export default function PanelScreen() {
         <Text style={[styles.appHeaderTitle, { color: theme.text }]}>
           Panel
         </Text>
-        <View style={{ width: 24 }} />
+        {/* <View style={{ width: 24 }} /> */}
       </View>
       {/* ===== SUMMARY CARD ===== */}
       <View
