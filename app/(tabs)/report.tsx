@@ -12,7 +12,7 @@ import {
   useColorScheme,
   View,
 } from "react-native";
-import Svg, { Circle, Path } from "react-native-svg";
+import Svg, { Circle, Defs, Marker, Path } from "react-native-svg";
 
 const { width } = Dimensions.get("window");
 
@@ -138,51 +138,108 @@ export default function ReportScreen() {
         <View style={styles.powerFlowContainer}>
           {/* SVG Power Flow Lines */}
           <View style={styles.svgOverlay}>
-            <Svg height="400" width={width - 40}>
-              {/* Lines from Solar (Top) to Center */}
-              <Path
-                d={`M ${(width - 40) / 2 - 5} 60 Q ${(width - 40) / 2 - 5} 150 ${(width - 40) / 2 - 40} 150`}
-                stroke={theme.orange}
-                strokeWidth="1.5"
-                fill="none"
-              />
-              <Path
-                d={`M ${(width - 40) / 2 + 5} 60 Q ${(width - 40) / 2 + 5} 160 ${(width - 40) / 2} 160`}
-                stroke={theme.orange}
-                strokeWidth="1.5"
-                fill="none"
-              />
+            <Svg
+              height="400"
+              width={width - 40}
+              viewBox={`0 0 ${width - 40} 400`}
+            >
+              <Defs>
+                {/* Arrow Marker Definitions */}
+                <Marker
+                  id="arrowGreen"
+                  viewBox="0 0 10 10"
+                  refX="10"
+                  refY="5"
+                  markerWidth="10"
+                  markerHeight="10"
+                  orient="auto"
+                >
+                  <Path d="M 0 0 L 10 5 L 0 10 z" fill={theme.green} />
+                </Marker>
+                <Marker
+                  id="arrowBlue"
+                  viewBox="0 0 10 10"
+                  refX="10"
+                  refY="5"
+                  markerWidth="10"
+                  markerHeight="10"
+                  orient="auto"
+                >
+                  <Path d="M 0 0 L 10 5 L 0 10 z" fill={theme.lightblue} />
+                </Marker>
+              </Defs>
 
-              {/* Line to Battery (Left) */}
-              <Path
-                d={`M ${(width - 40) / 2 - 40} 150 L 80 150`}
-                stroke={theme.green}
-                strokeWidth="1.5"
-                fill="none"
-              />
-              <Circle cx="120" cy="150" r="3" fill={theme.green} />
+              {/* Define Constants for easier positioning */}
+              {(() => {
+                const cx = (width - 40) / 2;
+                const cy = 188;
+                const off = 6;
+                const yTop = 135;
+                const yBottom = 265;
+                const xLeft = 85;
+                const xRight = width - 125;
+                const r = 15;
 
-              {/* Line to Grid (Right) */}
-              <Path
-                d={`M ${(width - 40) / 2 + 5} 160 Q ${(width - 40) / 2 + 40} 160 ${(width - 40) / 2 + 40} 160 L ${width - 120} 160`}
-                stroke={isDark ? theme.lightblue : theme.blue}
-                strokeWidth="1.5"
-                fill="none"
-              />
-              <Circle
-                cx={width - 160}
-                cy="160"
-                r="3"
-                fill={isDark ? theme.white : theme.black}
-              />
+                return (
+                  <>
+                    {/* Path 1: Solar Left -> Battery (Orange to Green) */}
+                    <Path
+                      d={`M ${cx - off} ${yTop - 10} L ${cx - off} ${cy - r} Q ${cx - off} ${cy} ${cx - off - r} ${cy}`}
+                      stroke={theme.orange}
+                      strokeWidth="1.5"
+                      fill="none"
+                    />
+                    <Path
+                      d={`M ${cx - off - r} ${cy} L ${xLeft} ${cy}`}
+                      stroke={theme.green}
+                      strokeWidth="1.5"
+                      fill="none"
+                      markerEnd="url(#arrowGreen)"
+                    />
+                    <Circle cx={cx - 60} cy={cy} r="2.5" fill={theme.green} />
 
-              {/* Line to House (Bottom) */}
-              <Path
-                d={`M ${(width - 40) / 2} 160 L ${(width - 40) / 2} 240`}
-                stroke={theme.lightblue}
-                strokeWidth="1.5"
-                fill="none"
-              />
+                    {/* Path 2: Solar Right -> House Right (Orange to Blue) */}
+                    <Path
+                      d={`M ${cx + (off - 5)} ${yTop - 10} L ${cx + (off - 5)} ${cy}`}
+                      stroke={theme.orange}
+                      strokeWidth="1.5"
+                      fill="none"
+                    />
+                    <Path
+                      d={`M ${cx + (off - 5)} ${cy} L ${cx + (off - 5)} ${yBottom}`}
+                      stroke={theme.lightblue}
+                      strokeWidth="1.5"
+                      fill="none"
+                      markerEnd="url(#arrowBlue)"
+                    />
+
+                    {/* Path 3: Grid -> House Left (Grey to Blue) */}
+                    <Path
+                      d={`M ${xRight} ${cy} L ${cx - (off - 25)} ${cy} Q ${cx - (off - 15)} ${cy} ${cx - (off - 15)} ${cy + r}`}
+                      stroke={isDark ? "#555" : "#999"}
+                      strokeWidth="1.5"
+                      fill="none"
+                    />
+                    <Path
+                      d={`M ${cx - (off - 15)} ${cy + r} L ${cx - (off - 15)} ${yBottom}`}
+                      stroke={theme.lightblue}
+                      strokeWidth="1.5"
+                      fill="none"
+                      markerEnd="url(#arrowBlue)"
+                    />
+                    <Circle
+                      cx={xRight - 45}
+                      cy={cy}
+                      r="2.5"
+                      fill={isDark ? "#555" : "#999"}
+                    />
+
+                    {/* Central Junction Dot */}
+                    <Circle cx={cx} cy={cy} r="4" fill="#333" />
+                    <Circle cx={cx} cy={cy} r="2" fill="#666" />
+                  </>
+                );
+              })()}
             </Svg>
           </View>
 
@@ -454,7 +511,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: -1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   nodeColumn: {
     alignItems: "center",
