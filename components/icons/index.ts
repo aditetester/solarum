@@ -1,10 +1,21 @@
+export { default as BatteryIcon } from "./BatteryIcon";
+export { default as ChatIcon } from "./ChatIcon";
+export { default as CleaningIcon } from "./CleaningIcon";
 export { default as EnergyIcon } from "./EnergyIcon";
-export { default as GridIcon } from "./GridIcon";
+export { default as HelpCenterIcon } from "./HelpCenterIcon";
 export { default as HomeIcon } from "./HomeIcon";
+export { default as HorizontalBatteryIcon } from "./HorizontalBatteryIcon";
+export { default as InstallationIcon } from "./InstallationIcon";
+export { default as OMIcon } from "./OMIcon";
 export { default as PanelIcon } from "./PanelIcon";
+export { default as ProductsIcon } from "./ProductsIcon";
 export { default as ProfileIcon } from "./ProfileIcon";
 export { default as RainIcon } from "./RainIcon";
+export { default as ReferEarnIcon } from "./ReferEarnIcon";
 export { default as ReportIcon } from "./ReportIcon";
 export { default as ServiceIcon } from "./ServiceIcon";
-export { default as SolarIcon } from "./SolarIcon";
+export { default as SettingsIcon } from "./settingIcon";
+export { default as SignalTowerIcon } from "./SignalTowerIcon";
+export { default as SiteSurveyIcon } from "./SiteSurveyIcon";
+export { default as SolarSunIcon } from "./SolarSunIcon";
 

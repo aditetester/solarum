@@ -1,7 +1,13 @@
-import { EnergyIcon, GridIcon, HomeIcon, SolarIcon } from "@/components/icons";
+import {
+  BatteryIcon,
+  HomeIcon,
+  HorizontalBatteryIcon,
+  SettingsIcon,
+  SignalTowerIcon,
+  SolarSunIcon,
+} from "@/components/icons";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
@@ -28,7 +34,9 @@ export default function ReportScreen() {
       style={[
         styles.tabButton,
         activeTab === label &&
-          (isDark ? styles.tabButtonActiveDark : styles.tabButtonActiveLight),
+          (isDark
+            ? { backgroundColor: theme.opacitywhite }
+            : { backgroundColor: theme.opacityblack }),
       ]}
     >
       <Text
@@ -58,12 +66,7 @@ export default function ReportScreen() {
       </View>
 
       <View style={styles.content}>
-        <View
-          style={[
-            styles.tabContainer,
-            isDark ? styles.tabContainerDark : styles.tabContainerLight,
-          ]}
-        >
+        <View style={styles.tabContainer}>
           {["Daily", "Weekly", "Monthly"].map(renderTab)}
         </View>
 
@@ -87,11 +90,13 @@ export default function ReportScreen() {
         <View
           style={[
             styles.infoCard,
-            isDark ? styles.infoCardDark : styles.infoCardLight,
+            isDark
+              ? { backgroundColor: theme.opacityblack }
+              : { backgroundColor: theme.opacitywhite },
           ]}
         >
           <View style={styles.infoSection}>
-            <EnergyIcon size={32} color={theme.green} />
+            <BatteryIcon size={28} color={theme.green} />
             <View style={styles.infoDetails}>
               <Text style={[styles.infoLabel, { color: theme.gray }]}>
                 Charge
@@ -99,17 +104,13 @@ export default function ReportScreen() {
               <Text style={[styles.infoValue, { color: theme.text }]}>77%</Text>
             </View>
           </View>
-          <View style={styles.divider} />
+          <View
+            style={[styles.divider, { backgroundColor: theme.systemgray }]}
+          />
           <View style={styles.infoSection}>
             <View style={styles.infoDetails}>
               <Text style={[styles.infoLabel, { color: theme.gray }]}>
-                Profile{" "}
-                <Ionicons
-                  name="settings-outline"
-                  size={14}
-                  color={theme.text}
-                  style={{ marginLeft: 4 }}
-                />
+                Profile <SettingsIcon size={14} color={theme.text} />
               </Text>
               <Text style={[styles.infoValue, { color: theme.text }]}>
                 Self - Consumption
@@ -255,7 +256,7 @@ export default function ReportScreen() {
                   },
                 ]}
               >
-                <SolarIcon size={24} color={theme.orange} />
+                <SolarSunIcon size={28} color={theme.orange} />
               </View>
               <Text style={[styles.nodeValue, { color: theme.orange }]}>
                 1.057 kw
@@ -277,7 +278,7 @@ export default function ReportScreen() {
                     },
                   ]}
                 >
-                  <EnergyIcon size={24} color={theme.green} />
+                  <HorizontalBatteryIcon size={28} color={theme.green} />
                 </View>
                 <Text style={[styles.nodeValue, { color: theme.green }]}>
                   0.041 kw
@@ -298,10 +299,7 @@ export default function ReportScreen() {
                     },
                   ]}
                 >
-                  <GridIcon
-                    size={24}
-                    color={isDark ? theme.lightblue : theme.blue}
-                  />
+                  <SignalTowerIcon size={28} color={theme.lightblue} />
                 </View>
                 <Text
                   style={[
@@ -382,7 +380,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    // paddingHorizontal: 20,
     marginBottom: 20,
   },
   backButton: {
@@ -404,23 +401,11 @@ const styles = StyleSheet.create({
     padding: 4,
     marginBottom: 15,
   },
-  tabContainerLight: {
-    backgroundColor: "rgba(0,0,0,0.05)",
-  },
-  tabContainerDark: {
-    backgroundColor: "rgba(255,255,255,0.05)",
-  },
   tabButton: {
     flex: 1,
     paddingVertical: 10,
     alignItems: "center",
     borderRadius: 8,
-  },
-  tabButtonActiveLight: {
-    backgroundColor: "rgba(0,0,0,0.1)",
-  },
-  tabButtonActiveDark: {
-    backgroundColor: "rgba(255,255,255,0.1)",
   },
   tabText: {
     fontSize: 14,
@@ -456,20 +441,9 @@ const styles = StyleSheet.create({
   },
   infoCard: {
     flexDirection: "row",
-    borderRadius: 15,
+    borderRadius: 6,
     padding: 10,
     marginBottom: 30,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  infoCardLight: {
-    backgroundColor: "#FFFFFF",
-  },
-  infoCardDark: {
-    backgroundColor: "#1A1A1A",
   },
   infoSection: {
     flex: 1,
@@ -490,7 +464,6 @@ const styles = StyleSheet.create({
   divider: {
     width: 1,
     height: "100%",
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
     marginHorizontal: 15,
   },
   profileIconLabel: {

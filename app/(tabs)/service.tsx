@@ -1,30 +1,37 @@
 import { BlogCard } from "@/components/BlogCard";
+import {
+  ChatIcon,
+  CleaningIcon,
+  HelpCenterIcon,
+  InstallationIcon,
+  OMIcon,
+  ProductsIcon,
+  ReferEarnIcon,
+  SiteSurveyIcon,
+} from "@/components/icons";
 import { BLOGS } from "@/constants/blogs";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useRef, useState } from "react";
 import {
-    Dimensions,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
-type IoniconName = React.ComponentProps<typeof Ionicons>["name"];
-
-const services: { label: string; icon: IoniconName }[] = [
-  { label: "Site Survey", icon: "document-text-outline" },
-  { label: "Installation", icon: "construct-outline" },
-  { label: "Cleaning", icon: "basket-outline" },
-  { label: "O & M", icon: "settings-outline" },
-  { label: "Products", icon: "cube-outline" },
-  { label: "Refer & Earn", icon: "gift-outline" },
-  { label: "Help Centre", icon: "help-circle-outline" },
-  { label: "Chats", icon: "chatbubble-ellipses-outline" },
+const services = [
+  { label: "Site Survey", icon: SiteSurveyIcon },
+  { label: "Installation", icon: InstallationIcon },
+  { label: "Cleaning", icon: CleaningIcon },
+  { label: "O & M", icon: OMIcon },
+  { label: "Products", icon: ProductsIcon },
+  { label: "Refer & Earn", icon: ReferEarnIcon },
+  { label: "Help Centre", icon: HelpCenterIcon },
+  { label: "Chats", icon: ChatIcon },
 ];
 
 const HERO_SLIDES = [
@@ -175,8 +182,7 @@ export default function ServiceScreen() {
                 },
               ]}
             >
-              <Ionicons
-                name={item.icon}
+              <item.icon
                 size={22}
                 color={theme.text}
                 style={{ marginBottom: 6 }}

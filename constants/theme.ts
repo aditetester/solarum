@@ -29,6 +29,7 @@ const OPACITYGREEN: string = "rgba(12, 215, 43, 0.3)";
 const OPACITYBLUE: string = "rgba(13, 189, 216, 0.3)";
 const OPACITYRED: string = "rgba(229, 9, 9, 0.3)";
 const OPACITYWHITE: string = "rgba(255, 255, 255, 0.2)";
+const OPACITYBLACK: string = "rgba(0, 0, 0, 0.2)";
 
 const light = {
   lightblue: LIGHTBLUE,
@@ -54,6 +55,7 @@ const light = {
   opacityblue: OPACITYBLUE,
   opacityred: OPACITYRED,
   opacitywhite: OPACITYWHITE,
+  opacityblack: OPACITYBLACK,
   systemblue: SYSTEMBLUE,
   // Standard functional mappings for compatibility
   text: BLACK,
@@ -88,6 +90,7 @@ const dark = {
   opacityblue: OPACITYBLUE,
   opacityred: OPACITYRED,
   opacitywhite: OPACITYWHITE,
+  opacityblack: OPACITYBLACK,
   systemblue: SYSTEMBLUE,
   // Standard functional mappings for compatibility
   text: WHITE,
