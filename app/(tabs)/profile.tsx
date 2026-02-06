@@ -28,7 +28,6 @@ const PROFILE_ITEMS: Item[] = [
   { label: "Contact us", icon: "call-outline", route: "/contact" },
   { label: "Help", icon: "help-circle-outline", route: "/help" },
   { label: "Terms & Conditions", icon: "document-outline", route: "/terms" },
-  { label: "Icons", icon: "home-outline", route: "/icons" },
 ];
 
 export default function ProfileScreen() {

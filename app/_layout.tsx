@@ -30,6 +30,7 @@ function RootLayoutContent() {
           <Stack.Screen name="blog" options={{ headerShown: false }} />
           <Stack.Screen name="blogs" options={{ headerShown: false }} />
           <Stack.Screen name="edit-profile" options={{ headerShown: false }} />
+          <Stack.Screen name="feedback" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
       </ProfileProvider>
