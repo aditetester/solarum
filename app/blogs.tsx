@@ -1,19 +1,12 @@
 import { BlogCard } from "@/components/BlogCard";
+import { ScreenHeader } from "@/components/ScreenHeader";
 import { BLOGS } from "@/constants/blogs";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import {
-    FlatList,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function BlogsScreen() {
   const { theme: themeName, isDark } = useTheme();
@@ -26,21 +19,13 @@ export default function BlogsScreen() {
   );
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={styles.backButton}
-        >
-          <Ionicons name="arrow-back" size={24} color={theme.text} />
-        </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: theme.text }]}>
-          All Blogs
-        </Text>
-      </View>
+      <ScreenHeader
+        title="All Blogs"
+        showBackButton
+        onBackPress={() => router.replace("/(tabs)/profile")}
+      />
 
       {/* SEARCH */}
       <View
@@ -74,29 +59,13 @@ export default function BlogsScreen() {
           </View>
         }
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    position: "relative",
-  },
-  backButton: {
-    position: "absolute",
-    left: 16,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "700",
   },
   searchContainer: {
     flexDirection: "row",

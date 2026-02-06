@@ -1,3 +1,5 @@
+import { ScreenHeader } from "@/components/ScreenHeader";
+import { SectionTitle } from "@/components/SectionTitle";
 import {
   EnergyIcon,
   RainIcon,
@@ -6,7 +8,6 @@ import {
 } from "@/components/icons";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import {
@@ -16,7 +17,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 // const BackArrow = ({ color }: { color: string }) => (
 //   <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
@@ -176,53 +176,27 @@ export default function NotificationsScreen() {
   );
 
   return (
-    <SafeAreaView
+    <View
       style={[
         styles.container,
         { backgroundColor: isDark ? theme.black : theme.white },
       ]}
     >
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => {
-            console.log("Back arrow clicked");
-            router.replace("/");
-          }}
-        >
-          <Ionicons name="arrow-back" size={24} color={theme.text} />
-          {/* <BackArrow color={colors.text} /> */}
-        </TouchableOpacity>
-
-        <Text style={[styles.headerTitle, { color: theme.text }]}>
-          Notifications
-        </Text>
-
-        <View style={{ width: 24 }} />
-      </View>
+      <ScreenHeader
+        title="Notifications"
+        showBackButton
+        onBackPress={() => router.replace("/")}
+      />
 
       <ScrollView contentContainerStyle={styles.content}>
-        <Text
-          style={[
-            styles.section,
-            { color: isDark ? theme.white : theme.black },
-          ]}
-        >
-          Today
-        </Text>
+        <SectionTitle title="Today" marginTop={16} marginBottom={8} />
         {notificationsToday.map(renderCard)}
 
-        <Text
-          style={[
-            styles.section,
-            { color: isDark ? theme.white : theme.black },
-          ]}
-        >
-          Yesterday
-        </Text>
+        <SectionTitle title="Yesterday" marginTop={16} marginBottom={8} />
         {notificationsYesterday.map(renderCard)}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -240,15 +214,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 14,
-    justifyContent: "space-between",
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "600",
   },
   content: {
     paddingHorizontal: 16,
@@ -257,8 +224,6 @@ const styles = StyleSheet.create({
   section: {
     marginTop: 16,
     marginBottom: 8,
-    fontSize: 18,
-    fontWeight: "bold",
   },
   card: {
     borderRadius: 12,

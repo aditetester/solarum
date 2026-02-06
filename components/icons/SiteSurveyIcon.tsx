@@ -1,5 +1,5 @@
 import React from "react";
-import Svg, { Circle, Path, Rect, SvgProps } from "react-native-svg";
+import Svg, { Path, Rect, SvgProps } from "react-native-svg";
 
 interface IconProps extends SvgProps {
   size?: number;
@@ -14,25 +14,30 @@ const SiteSurveyIcon: React.FC<IconProps> = ({
   <Svg
     width={size}
     height={size}
-    viewBox="0 0 24 24"
+    viewBox="-1 -1 26 26" // padding to prevent stroke clipping
     fill="none"
     stroke={color}
-    strokeWidth={1.2}
+    strokeWidth={1.3}
     strokeLinecap="round"
     strokeLinejoin="round"
     {...props}
   >
-    {/* Clipboard */}
-    <Rect x="4" y="4" width="16" height="16" rx="2" />
-    <Path d="M9 2h6v4H9z" />
+    {/* Document outline with folded corner */}
+    <Path d="M6 2h12l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+    <Path d="M16 2v5h5" />
 
-    {/* Magnifying glass */}
-    <Circle cx="15" cy="15" r="3" />
-    <Path d="M17.5 17.5L20 20" />
+    {/* Checkboxes */}
+    <Rect x="6" y="8" width="3" height="3" rx="0.5" />
+    <Rect x="6" y="13" width="3" height="3" rx="0.5" />
+    <Rect x="6" y="18" width="3" height="3" rx="0.5" />
 
-    {/* Lines on clipboard */}
-    <Path d="M7 10h5" />
-    <Path d="M7 14h3" />
+    {/* Text lines */}
+    <Path d="M11 9h5" />
+    <Path d="M11 14h5" />
+    <Path d="M11 19h5" />
+
+    {/* Pencil (edit icon) */}
+    <Path d="M18 14l5-5 3 3-5 5-3 .5.5-3z" />
   </Svg>
 );
 

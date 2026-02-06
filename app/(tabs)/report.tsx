@@ -6,6 +6,8 @@ import {
   SignalTowerIcon,
   SolarSunIcon,
 } from "@/components/icons";
+import { ScreenHeader } from "@/components/ScreenHeader";
+import { SectionTitle } from "@/components/SectionTitle";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
 import { BlurView } from "expo-blur";
@@ -57,14 +59,7 @@ export default function ReportScreen() {
       colors={isDark ? ["#1E4169", "#000000"] : ["#99D6F2", "#F0F9FF"]}
       style={styles.container}
     >
-      <View style={styles.header}>
-        {/* <TouchableOpacity style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={theme.text} />
-        </TouchableOpacity> */}
-        <Text style={[styles.headerTitle, { color: theme.text }]}>Report</Text>
-        {/* <View style={{ width: 44 }} /> */}
-      </View>
-
+      <ScreenHeader title="Report" />
       <View style={styles.content}>
         <View style={styles.tabContainer}>
           {["Daily", "Weekly", "Monthly"].map(renderTab)}
@@ -72,9 +67,7 @@ export default function ReportScreen() {
 
         <View style={styles.liveReportHeader}>
           <View>
-            <Text style={[styles.liveReportTitle, { color: theme.text }]}>
-              Live Report
-            </Text>
+            <SectionTitle title="Live Report" marginBottom={4} />
             <View style={styles.statusBadge}>
               <View
                 style={[styles.statusDot, { backgroundColor: theme.green }]}
@@ -374,7 +367,6 @@ export default function ReportScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
   },
   header: {
     flexDirection: "row",
@@ -416,11 +408,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     marginBottom: 15,
-  },
-  liveReportTitle: {
-    fontSize: 18,
-    fontWeight: "700",
-    marginBottom: 4,
   },
   statusBadge: {
     flexDirection: "row",

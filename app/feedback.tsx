@@ -1,24 +1,25 @@
+import { CameraIcon, SendMsgIcon } from "@/components/icons";
+import { ScreenHeader } from "@/components/ScreenHeader";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
-    ActionSheetIOS,
-    Alert,
-    Dimensions,
-    FlatList,
-    Image,
-    KeyboardAvoidingView,
-    Modal,
-    Platform,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActionSheetIOS,
+  Alert,
+  Dimensions,
+  FlatList,
+  Image,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -35,7 +36,6 @@ type Message = {
 export default function FeedbackScreen() {
   const { theme: themeName, isDark } = useTheme();
   const theme = Colors[themeName];
-  const router = useRouter();
   const insets = useSafeAreaInsets();
 
   const [inputText, setInputText] = useState("");
@@ -294,29 +294,19 @@ export default function FeedbackScreen() {
   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: theme.background, paddingTop: insets.top },
-      ]}
-    >
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       <StatusBar barStyle={isDark ? "light-content" : "dark-content"} />
 
       {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={styles.headerBtn}
-        >
-          <Ionicons name="arrow-back" size={24} color={theme.text} />
-        </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: theme.text }]}>
-          Feedback
-        </Text>
-        <TouchableOpacity style={styles.headerBtn}>
-          <Ionicons name="ellipsis-vertical" size={24} color={theme.text} />
-        </TouchableOpacity>
-      </View>
+      <ScreenHeader
+        title="Feedback"
+        showBackButton
+        rightComponent={
+          <TouchableOpacity style={styles.headerBtn}>
+            <Ionicons name="ellipsis-vertical" size={24} color={theme.text} />
+          </TouchableOpacity>
+        }
+      />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -355,7 +345,7 @@ export default function FeedbackScreen() {
             ]}
             onPress={showImageOptions}
           >
-            <Ionicons name="camera-outline" size={22} color={theme.text} />
+            <CameraIcon size={22} color={theme.text} />
           </TouchableOpacity>
 
           <View
@@ -376,11 +366,10 @@ export default function FeedbackScreen() {
               multiline
             />
             <TouchableOpacity onPress={sendMessage}>
-              <Ionicons
-                name="send-outline"
+              <SendMsgIcon
                 size={20}
                 color={theme.text}
-                style={styles.sendIcon}
+                style={{ transform: [{ rotate: "180deg" }] }}
               />
             </TouchableOpacity>
           </View>
@@ -415,7 +404,7 @@ export default function FeedbackScreen() {
             style={styles.galleryClose}
             onPress={() => setGalleryVisible(false)}
           >
-            <Ionicons name="close" size={28} color={isDark ? "#FFF" : "#000"} />
+            <Ionicons name="close" size={30} color={isDark ? "#FFF" : "#000"} />
           </TouchableOpacity>
 
           <FlatList
@@ -451,22 +440,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
     paddingHorizontal: 16,
-    paddingTop: 10,
     paddingBottom: 15,
   },
   headerBtn: {
     width: 40,
     height: 40,
+    borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: "700",
   },
   scrollContent: {
     padding: 16,

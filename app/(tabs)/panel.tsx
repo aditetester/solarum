@@ -1,4 +1,7 @@
-import { EnergyIcon } from "@/components/icons";
+import { AppButton } from "@/components/AppButton";
+import { ArrowIcon, EnergyIcon } from "@/components/icons";
+import { ScreenHeader } from "@/components/ScreenHeader";
+import { SectionTitle } from "@/components/SectionTitle";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
@@ -85,201 +88,198 @@ export default function PanelScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.content}>
+    <View style={styles.container}>
       {/* ===== HEADER ===== */}
-      <View style={styles.appHeader}>
-        {/* <TouchableOpacity onPress={() => router.back()}>
-            <Ionicons name="arrow-back" size={24} color={theme.text} />
-          </TouchableOpacity> */}
-        <Text style={[styles.appHeaderTitle, { color: theme.text }]}>
-          Panel
-        </Text>
-        {/* <View style={{ width: 24 }} /> */}
-      </View>
-      {/* ===== SUMMARY CARD ===== */}
-      <View
-        style={[
-          styles.summaryCard,
-          { backgroundColor: isDark ? theme.lightblue : theme.blue },
-        ]}
-      >
-        <View style={styles.summaryContent}>
-          <View style={{ flex: 1 }}>
-            <Text style={[styles.summaryTitle, { color: theme.white }]}>
-              {PANEL_SUMMARY.title}
-            </Text>
-            <Text style={[styles.summaryDesc, { color: theme.white }]}>
-              {PANEL_SUMMARY.desc}
-            </Text>
-          </View>
-          <Image
-            source={require("@/assets/images/panel/header.png")}
-            style={styles.summaryImage}
-            resizeMode="contain"
-          />
-        </View>
-      </View>
-      {/* ===== LIST HEADER ===== */}
-      <View style={styles.sectionHeader}>
-        <Text style={[styles.sectionTitle, { color: theme.text }]}>Panels</Text>
-        <Text style={{ color: theme.systemgray, fontSize: 13 }}>Total 32</Text>
-      </View>
-      {/* ===== PANEL LIST ===== */}
-      {PANELS_DATA.map((item, index) => (
-        <TouchableOpacity
-          key={item.id}
-          onPress={() => handlePanelInfo(item)}
-          style={[
-            styles.panelRow,
-            { backgroundColor: isDark ? theme.carddark : theme.cardlight },
-          ]}
-        >
-          <View
-            style={[
-              styles.panelImageContainer,
-              {
-                backgroundColor: isDark ? theme.black : theme.white,
-                borderColor: theme.systemgray,
-              },
-            ]}
-          >
-            <Image
-              source={require("@/assets/images/panel/panel.png")}
-              style={styles.panelIcon}
-              resizeMode="contain"
-            />
-          </View>
+      <ScreenHeader title="Panel" />
 
-          <View style={{ flex: 1 }}>
-            <Text style={[styles.panelName, { color: theme.text }]}>
-              {item.name}
-            </Text>
-            <Text style={[styles.panelEfficiency, { color: theme.systemgray }]}>
-              Efficiency {item.efficiency}
-            </Text>
-          </View>
-
-          <View style={styles.rightBlock}>
-            <Text
-              style={[styles.status, { color: getStatusColor(item.statusKey) }]}
-            >
-              {item.status}
-            </Text>
-            <View style={styles.leftBlock}>
-              <EnergyIcon size={16} color={theme.gold} fill={theme.gold} />
-              <Text style={[styles.leftBlockText, { color: theme.systemgray }]}>
-                {item.power}
-              </Text>
-            </View>
-          </View>
-
-          <View
-            style={[
-              styles.chevronContainer,
-              {
-                backgroundColor: isDark ? theme.black : theme.white,
-                borderColor: theme.systemgray,
-              },
-            ]}
-          >
-            <Ionicons
-              name="chevron-forward"
-              size={16}
-              color={theme.systemgray}
-            />
-          </View>
-        </TouchableOpacity>
-      ))}
-
-      {/* ===== FEATURED SECTION ===== */}
-      <View style={[styles.sectionHeader, { marginTop: 24 }]}>
-        <Text style={[styles.sectionTitle, { color: theme.text }]}>
-          Panels you may like
-        </Text>
-      </View>
-
-      <View style={styles.recommendCardContainer}>
+      <ScrollView contentContainerStyle={styles.content}>
+        {/* ===== SUMMARY CARD ===== */}
         <View
           style={[
-            styles.recommendCard,
+            styles.summaryCard,
             { backgroundColor: isDark ? theme.lightblue : theme.blue },
           ]}
         >
-          {/* ===== LEFT CONTENT ===== */}
-          <View style={styles.recommendLeft}>
-            {/* TITLE + POWER (ONE LINE) */}
-            <View style={styles.titleRow}>
-              <Text style={[styles.recommendTitle, { color: theme.white }]}>
-                MicroSolar Mini-Panel
+          <View style={styles.summaryContent}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.summaryTitle, { color: theme.white }]}>
+                {PANEL_SUMMARY.title}
               </Text>
-              <Text style={[styles.recommendPower, { color: theme.white }]}>
-                150W
+              <Text style={[styles.summaryDesc, { color: theme.white }]}>
+                {PANEL_SUMMARY.desc}
               </Text>
             </View>
-
-            {/* FEATURES */}
-            <View style={styles.featureItem}>
-              <Ionicons name="checkmark" size={12} color={theme.white} />
-              <Text style={[styles.featureText, { color: theme.white }]}>
-                Small Size Panel
-              </Text>
-            </View>
-            <View style={styles.featureItem}>
-              <Ionicons name="checkmark" size={12} color={theme.white} />
-              <Text style={[styles.featureText, { color: theme.white }]}>
-                Ideal for tinny house
-              </Text>
-            </View>
-
-            {/* PRICE */}
-            <Text style={[styles.price, { color: theme.white }]}>
-              ₹ 1000 / Panel
-            </Text>
-
-            {/* BUTTON */}
-            <TouchableOpacity
-              style={[
-                styles.viewButton,
-                {
-                  borderColor: theme.white,
-                  backgroundColor: theme.opacitywhite,
-                },
-              ]}
-            >
-              <Text style={[styles.viewButtonText, { color: theme.white }]}>
-                View Details
-              </Text>
-              <Ionicons
-                name="share-outline"
-                size={14}
-                color={theme.white}
-                style={{ marginLeft: 6, transform: [{ rotate: "45deg" }] }}
-              />
-            </TouchableOpacity>
-          </View>
-
-          {/* ===== RIGHT IMAGE ===== */}
-          <View style={styles.recommendRight}>
-            {/* ARROW ON IMAGE */}
-            <View style={styles.imageArrow}>
-              <Ionicons name="chevron-forward" size={20} color={theme.white} />
-            </View>
-
             <Image
-              source={require("@/assets/images/panel/home.png")}
-              style={styles.houseImage}
+              source={require("@/assets/images/panel/header.png")}
+              style={styles.summaryImage}
               resizeMode="contain"
             />
           </View>
         </View>
-      </View>
-    </ScrollView>
+        {/* ===== LIST HEADER ===== */}
+        <View style={styles.sectionHeader}>
+          <SectionTitle title="Panels" marginBottom={0} />
+          <Text style={{ color: theme.systemgray, fontSize: 13 }}>
+            Total 32
+          </Text>
+        </View>
+        {/* ===== PANEL LIST ===== */}
+        {PANELS_DATA.map((item, index) => (
+          <TouchableOpacity
+            key={item.id}
+            onPress={() => handlePanelInfo(item)}
+            style={[
+              styles.panelRow,
+              { backgroundColor: isDark ? theme.carddark : theme.cardlight },
+            ]}
+          >
+            <View
+              style={[
+                styles.panelImageContainer,
+                {
+                  backgroundColor: isDark ? theme.black : theme.white,
+                  borderColor: theme.systemgray,
+                },
+              ]}
+            >
+              <Image
+                source={require("@/assets/images/panel/panel.png")}
+                style={styles.panelIcon}
+                resizeMode="contain"
+              />
+            </View>
+
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.panelName, { color: theme.text }]}>
+                {item.name}
+              </Text>
+              <Text
+                style={[styles.panelEfficiency, { color: theme.systemgray }]}
+              >
+                Efficiency {item.efficiency}
+              </Text>
+            </View>
+
+            <View style={styles.rightBlock}>
+              <Text
+                style={[
+                  styles.status,
+                  { color: getStatusColor(item.statusKey) },
+                ]}
+              >
+                {item.status}
+              </Text>
+              <View style={styles.leftBlock}>
+                <EnergyIcon size={16} color={theme.gold} fill={theme.gold} />
+                <Text
+                  style={[styles.leftBlockText, { color: theme.systemgray }]}
+                >
+                  {item.power}
+                </Text>
+              </View>
+            </View>
+
+            <View
+              style={[
+                styles.chevronContainer,
+                {
+                  backgroundColor: isDark ? theme.black : theme.white,
+                  borderColor: theme.systemgray,
+                },
+              ]}
+            >
+              <ArrowIcon color={theme.systemgray} size={16} />
+            </View>
+          </TouchableOpacity>
+        ))}
+
+        {/* ===== FEATURED SECTION ===== */}
+        <SectionTitle title="Panels you may like" marginTop={24} />
+
+        <View style={styles.recommendCardContainer}>
+          <View
+            style={[
+              styles.recommendCard,
+              { backgroundColor: isDark ? theme.lightblue : theme.blue },
+            ]}
+          >
+            {/* ===== LEFT CONTENT ===== */}
+            <View style={styles.recommendLeft}>
+              {/* TITLE + POWER (ONE LINE) */}
+              <View style={styles.titleRow}>
+                <Text style={[styles.recommendTitle, { color: theme.white }]}>
+                  MicroSolar Mini-Panel
+                </Text>
+                <Text style={[styles.recommendPower, { color: theme.white }]}>
+                  150W
+                </Text>
+              </View>
+
+              {/* FEATURES */}
+              <View style={styles.featureItem}>
+                <Ionicons name="checkmark" size={12} color={theme.white} />
+                <Text style={[styles.featureText, { color: theme.white }]}>
+                  Small Size Panel
+                </Text>
+              </View>
+              <View style={styles.featureItem}>
+                <Ionicons name="checkmark" size={12} color={theme.white} />
+                <Text style={[styles.featureText, { color: theme.white }]}>
+                  Ideal for tinny house
+                </Text>
+              </View>
+
+              {/* PRICE */}
+              <Text style={[styles.price, { color: theme.white }]}>
+                ₹ 1000 / Panel
+              </Text>
+
+              {/* BUTTON */}
+              <AppButton
+                title="View Details"
+                variant="outline"
+                iconName="LineArrowIcon"
+                iconSize={16}
+                iconColor={theme.white}
+                iconStyle={{ transform: [{ rotate: "180deg" }] }}
+                style={[
+                  styles.viewButton,
+                  {
+                    borderColor: theme.white,
+                    backgroundColor: theme.opacitywhite,
+                  },
+                ]}
+                textStyle={[styles.viewButtonText, { color: theme.white }]}
+              />
+            </View>
+
+            {/* ===== RIGHT IMAGE ===== */}
+            <View style={styles.recommendRight}>
+              {/* ARROW ON IMAGE */}
+              <View style={styles.imageArrow}>
+                <ArrowIcon color={theme.white} size={22} />
+              </View>
+
+              <Image
+                source={require("@/assets/images/panel/home.png")}
+                style={styles.houseImage}
+                resizeMode="contain"
+              />
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   content: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
   },
   appHeader: {
     flexDirection: "row",
@@ -322,10 +322,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 16,
-  },
-  sectionTitle: {
-    fontSize: 17,
-    fontWeight: "700",
   },
   panelRow: {
     flexDirection: "row",

@@ -1,3 +1,4 @@
+import { AppButton } from "@/components/AppButton";
 import { Colors } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -6,16 +7,17 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 
+import { SectionTitle } from "@/components/SectionTitle";
 import { useTheme } from "@/context/ThemeContext";
 import {
-    Dimensions,
-    FlatList,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 const { width, height } = Dimensions.get("window");
@@ -124,11 +126,12 @@ export default function OnboardingScreen() {
         </View>
       </View>
       <View style={styles.textContainer}>
-        <Text
+        <SectionTitle title={item.title} style={styles.title} />
+        {/* <Text
           style={[styles.title, { color: isDark ? theme.white : theme.black }]}
         >
           {item.title}
-        </Text>
+        </Text> */}
         <Text
           style={[
             styles.description,
@@ -218,22 +221,15 @@ export default function OnboardingScreen() {
             />
           ))}
         </View>
-        <TouchableOpacity
-          style={[
-            styles.button,
-            { backgroundColor: isDark ? theme.lightblue : theme.blue },
-          ]}
+        <AppButton
+          title="Next"
           onPress={handleNext}
-        >
-          <Text
-            style={[
-              styles.buttonText,
-              { color: isDark ? theme.black : theme.white },
-            ]}
-          >
-            Next
-          </Text>
-        </TouchableOpacity>
+          style={styles.button}
+          textStyle={[
+            styles.buttonText,
+            { color: isDark ? theme.black : theme.white },
+          ]}
+        />
       </View>
     </View>
   );
@@ -337,9 +333,6 @@ const styles = StyleSheet.create({
   button: {
     width: "60%",
     height: 70,
-    borderRadius: 12,
-    justifyContent: "center",
-    alignItems: "center",
     borderTopLeftRadius: 18,
     borderTopRightRadius: 18,
     borderBottomLeftRadius: 0,

@@ -1,3 +1,4 @@
+import { AppButton } from "@/components/AppButton";
 import { BlogCard } from "@/components/BlogCard";
 import {
   ChatIcon,
@@ -9,6 +10,8 @@ import {
   ReferEarnIcon,
   SiteSurveyIcon,
 } from "@/components/icons";
+import { ScreenHeader } from "@/components/ScreenHeader";
+import { SectionTitle } from "@/components/SectionTitle";
 import { BLOGS } from "@/constants/blogs";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
@@ -19,7 +22,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -87,11 +89,7 @@ export default function ServiceScreen() {
   return (
     <View style={styles.container}>
       {/* FIXED HEADER (NOT SCROLLING) */}
-      <View style={styles.header}>
-        <Text style={[styles.headerTitle, { color: theme.text }]}>
-          Services
-        </Text>
-      </View>
+      <ScreenHeader title="Services" />
 
       {/* SCROLLABLE CONTENT */}
       <ScrollView
@@ -135,19 +133,18 @@ export default function ServiceScreen() {
             </Text>
 
             {/* BUTTON */}
-            <TouchableOpacity
+            <AppButton
+              title="Request Service"
+              variant="outline"
               style={[
                 styles.heroButton,
                 {
-                  borderColor: theme.white,
                   backgroundColor: theme.opacitywhite,
+                  borderColor: theme.white,
                 },
               ]}
-            >
-              <Text style={[styles.heroButtonText, { color: theme.white }]}>
-                Request Service
-              </Text>
-            </TouchableOpacity>
+              textStyle={[styles.heroButtonText, { color: theme.white }]}
+            />
 
             {/* DOTS */}
             <View style={styles.dotsOverlay}>
@@ -165,9 +162,7 @@ export default function ServiceScreen() {
         </View>
 
         {/* OUR SERVICES */}
-        <Text style={[styles.sectionTitle, { color: theme.text }]}>
-          Our Services
-        </Text>
+        <SectionTitle title="Our Services" />
 
         <View style={[styles.grid, { borderColor: theme.white }]}>
           {services.map((item, index) => (
@@ -195,7 +190,7 @@ export default function ServiceScreen() {
         </View>
 
         {/* BLOGS */}
-        <Text style={[styles.sectionTitle, { color: theme.text }]}>Blogs</Text>
+        <SectionTitle title="Blogs" />
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {BLOGS.map((blog) => (
@@ -215,18 +210,6 @@ const styles = StyleSheet.create({
   scrollContent: {
     padding: 16,
     paddingBottom: 32,
-  },
-
-  header: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
-    paddingVertical: 12,
-  },
-
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
   },
 
   headerDesc: {
@@ -290,11 +273,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
 
-  sectionTitle: {
-    fontSize: 17,
-    fontWeight: "bold",
-    marginBottom: 12,
-  },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",

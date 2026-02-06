@@ -1,7 +1,7 @@
+import { ChatIcon, LikeIcon, ShareIcon } from "@/components/icons";
 import { Blog } from "@/constants/blogs";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -34,9 +34,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     });
   };
 
-  const FooterAction = ({ icon, label }: { icon: any; label: string }) => (
+  const FooterAction = ({ Icon, label }: { Icon: any; label: string }) => (
     <TouchableOpacity style={styles.footerAction}>
-      <Ionicons name={icon} size={18} color={theme.text} />
+      <Icon size={20} color={theme.text} />
       <Text style={[styles.footerActionText, { color: theme.systemgray }]}>
         {label}
       </Text>
@@ -89,9 +89,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({
             { borderTopColor: isDark ? theme.borderdark : theme.borderlight },
           ]}
         >
-          <FooterAction icon="thumbs-up-outline" label="Liked" />
-          <FooterAction icon="chatbubble-outline" label="Comments" />
-          <FooterAction icon="share-social-outline" label="Share" />
+          <FooterAction Icon={LikeIcon} label="Liked" />
+          <FooterAction Icon={ChatIcon} label="Comments" />
+          <FooterAction Icon={ShareIcon} label="Share" />
         </View>
       </View>
     );
@@ -119,7 +119,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
         <Text
           style={[
             styles.readMore,
-            { color: theme.blue, borderBottomColor: theme.blue },
+            { color: theme.lightblue, borderBottomColor: theme.lightblue },
           ]}
         >
           Read more...

@@ -1,7 +1,7 @@
 import {
-    DarkTheme,
-    DefaultTheme,
-    ThemeProvider as NavigationThemeProvider,
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider as NavigationThemeProvider,
 } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -12,7 +12,7 @@ import { ProfileProvider } from "@/context/ProfileContext";
 import { ThemeProvider, useTheme } from "@/context/ThemeContext";
 
 export const unstable_settings = {
-  anchor: "(tabs)",
+  anchor: "logo",
 };
 
 function RootLayoutContent() {
@@ -21,7 +21,7 @@ function RootLayoutContent() {
   return (
     <NavigationThemeProvider value={isDark ? DarkTheme : DefaultTheme}>
       <ProfileProvider>
-        <Stack initialRouteName="(tabs)">
+        <Stack initialRouteName="logo">
           <Stack.Screen name="logo" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding" options={{ headerShown: false }} />
           <Stack.Screen name="login" options={{ headerShown: false }} />

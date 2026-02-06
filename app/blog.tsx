@@ -1,6 +1,7 @@
+import { ChatIcon, LikeIcon, SaveIcon, ShareIcon } from "@/components/icons";
+import { ScreenHeader } from "@/components/ScreenHeader";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import {
@@ -30,9 +31,9 @@ export default function BlogScreen() {
     }
   };
 
-  const FooterItem = ({ icon, label }: any) => (
+  const FooterItem = ({ Icon, label }: { Icon: any; label: string }) => (
     <TouchableOpacity style={styles.footerItem}>
-      <Ionicons name={icon} size={18} color={theme.text} />
+      <Icon size={18} color={theme.text} />
       <Text style={[styles.footerText, { color: theme.systemgray }]}>
         {label}
       </Text>
@@ -42,73 +43,70 @@ export default function BlogScreen() {
   return (
     <View style={styles.container}>
       {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={styles.backButton}
-        >
-          <Ionicons name="arrow-back" size={24} color={theme.text} />
-        </TouchableOpacity>
+      <ScreenHeader
+        title="Blogs"
+        showBackButton
+        onBackPress={() => router.replace("/(tabs)/service")}
+      />
 
-        <Text style={[styles.headerTitle, { color: theme.text }]}>Blogs</Text>
-      </View>
+      <View style={styles.content}>
+        {/* IMAGE */}
+        <Image source={getImage()} style={styles.image} />
 
-      {/* IMAGE */}
-      <Image source={getImage()} style={styles.image} />
+        {/* CONTENT */}
+        <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
 
-      {/* CONTENT */}
-      <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
-
-      <View style={styles.meta}>
-        <View style={styles.authorRow}>
-          <Image
-            source={authorImage as any}
-            style={[
-              styles.authorImage,
-              { borderColor: isDark ? theme.lightblue : theme.blue },
-            ]}
-          />
-          <Text style={[styles.author, { color: theme.text }]}>{author}</Text>
-          <Text style={[styles.authorPosition, { color: theme.systemgray }]}>
-            ({authorPosition})
-          </Text>
+        <View style={styles.meta}>
+          <View style={styles.authorRow}>
+            <Image
+              source={authorImage as any}
+              style={[
+                styles.authorImage,
+                { borderColor: isDark ? theme.lightblue : theme.blue },
+              ]}
+            />
+            <Text style={[styles.author, { color: theme.text }]}>{author}</Text>
+            <Text style={[styles.authorPosition, { color: theme.systemgray }]}>
+              ({authorPosition})
+            </Text>
+          </View>
+          <Text style={[styles.date, { color: theme.systemgray }]}>{date}</Text>
         </View>
-        <Text style={[styles.date, { color: theme.systemgray }]}>{date}</Text>
+        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+          <Text style={[styles.desc, { color: theme.text }]}>
+            {desc}
+            {"\n\n"}
+            Solar energy is the radiant energy from the Suns light and heat,
+            which can be harnessed using a range of technologies such as solar
+            electricity, solar thermal energy (including solar water heating)
+            and solar architecture. It is an essential source of renewable
+            energy, and its technologies are broadly characterized as either
+            passive solar or active solar depending on how they capture and
+            distribute solar energy or convert it into solar power. {"\n\n"}
+            Active solar techniques include the use of photovoltaic systems,
+            concentrated solar power, and solar water heating to harness the
+            energy. Passive solar techniques include designing a building for
+            better daylighting, selecting materials with favorable thermal mass
+            or light-dispersing properties, and organizing spaces that naturally
+            circulate air. In 2011, the International Energy Agency said that
+            the development of affordable, inexhaustible and clean solar energy
+            technologies will have huge longer-term benefits. {"\n\n"}It will
+            increase countries energy security through reliance on an
+            indigenous, inexhaustible, and mostly import-independent resource,
+            enhance sustainability, reduce pollution, lower the costs of
+            mitigating global warming .... these advantages are global
+          </Text>
+        </ScrollView>
       </View>
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-        <Text style={[styles.desc, { color: theme.text }]}>
-          {desc}
-          {"\n\n"}
-          Solar energy is the radiant energy from the Suns light and heat, which
-          can be harnessed using a range of technologies such as solar
-          electricity, solar thermal energy (including solar water heating) and
-          solar architecture. It is an essential source of renewable energy, and
-          its technologies are broadly characterized as either passive solar or
-          active solar depending on how they capture and distribute solar energy
-          or convert it into solar power. {"\n\n"}Active solar techniques
-          include the use of photovoltaic systems, concentrated solar power, and
-          solar water heating to harness the energy. Passive solar techniques
-          include designing a building for better daylighting, selecting
-          materials with favorable thermal mass or light-dispersing properties,
-          and organizing spaces that naturally circulate air. In 2011, the
-          International Energy Agency said that the development of affordable,
-          inexhaustible and clean solar energy technologies will have huge
-          longer-term benefits. {"\n\n"}It will increase countries energy
-          security through reliance on an indigenous, inexhaustible, and mostly
-          import-independent resource, enhance sustainability, reduce pollution,
-          lower the costs of mitigating global warming .... these advantages are
-          global
-        </Text>
-      </ScrollView>
       {/* FOOTER ACTIONS */}
       <View style={[styles.footer, { backgroundColor: theme.background }]}>
-        <FooterItem icon="thumbs-up-outline" label="500+ Liked" />
+        <FooterItem Icon={LikeIcon} label="500+ Liked" />
         <View style={[styles.divider, { backgroundColor: theme.systemgray }]} />
-        <FooterItem icon="chatbubble-outline" label="25 comments" />
+        <FooterItem Icon={ChatIcon} label="25 comments" />
         <View style={[styles.divider, { backgroundColor: theme.systemgray }]} />
-        <FooterItem icon="bookmark-outline" label="Add to reading list" />
+        <FooterItem Icon={SaveIcon} label="Add to reading list" />
         <View style={[styles.divider, { backgroundColor: theme.systemgray }]} />
-        <FooterItem icon="share-social-outline" label="Share" />
+        <FooterItem Icon={ShareIcon} label="Share" />
       </View>
     </View>
   );
@@ -117,8 +115,11 @@ export default function BlogScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     paddingBottom: 80,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 16,
   },
   header: {
     height: 56,

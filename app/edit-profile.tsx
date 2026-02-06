@@ -1,3 +1,5 @@
+import { AppButton } from "@/components/AppButton";
+import { ScreenHeader } from "@/components/ScreenHeader";
 import { Colors } from "@/constants/theme";
 import { useProfile } from "@/context/ProfileContext";
 import { Ionicons } from "@expo/vector-icons";
@@ -7,16 +9,16 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useTheme } from "@/context/ThemeContext";
 import {
-    Alert,
-    Image,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 export default function EditProfileScreen() {
@@ -85,6 +87,7 @@ export default function EditProfileScreen() {
 
   return (
     <View style={{ flex: 1 }}>
+      <ScreenHeader title="Edit Profile" showBackButton />
       <KeyboardAvoidingView
         style={[styles.container, { backgroundColor: theme.background }]}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -95,20 +98,6 @@ export default function EditProfileScreen() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {/* HEADER */}
-          <View style={styles.header}>
-            <Ionicons
-              name="arrow-back"
-              size={22}
-              color={theme.text}
-              onPress={() => router.back()}
-            />
-            <Text style={[styles.headerTitle, { color: theme.text }]}>
-              Edit Profile
-            </Text>
-            <View style={{ width: 22 }} />
-          </View>
-
           {/* AVATAR */}
           <View style={styles.avatarWrapper}>
             <Image
@@ -166,21 +155,19 @@ export default function EditProfileScreen() {
           },
         ]}
       >
-        <TouchableOpacity
-          style={[styles.discard, { borderColor: theme.lightblue }]}
+        <AppButton
+          title="Discard"
+          variant="outline"
           onPress={onDiscard}
-        >
-          <Text style={{ color: theme.lightblue, fontWeight: "600" }}>
-            Discard
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[styles.save, { backgroundColor: theme.systemblue }]}
+          style={[styles.discard, { borderColor: theme.lightblue }]}
+          textStyle={{ color: theme.lightblue, fontWeight: "600" }}
+        />
+        <AppButton
+          title="Save"
           onPress={onSave}
-        >
-          <Text style={{ color: theme.white, fontWeight: "700" }}>Save</Text>
-        </TouchableOpacity>
+          style={styles.save}
+          textStyle={{ fontWeight: "700" }}
+        />
       </View>
     </View>
   );
@@ -192,17 +179,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 16,
-  },
-  header: {
-    marginTop: 40,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 24,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "700",
   },
   avatarWrapper: {
     alignSelf: "center",
@@ -280,15 +256,8 @@ const styles = StyleSheet.create({
   },
   discard: {
     flex: 1,
-    paddingVertical: 14,
-    borderRadius: 10,
-    borderWidth: 1,
-    alignItems: "center",
   },
   save: {
     flex: 1,
-    paddingVertical: 14,
-    borderRadius: 10,
-    alignItems: "center",
   },
 });

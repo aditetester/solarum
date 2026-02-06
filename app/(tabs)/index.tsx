@@ -1,18 +1,21 @@
+import { AppButton } from "@/components/AppButton";
+import { ArrowIcon, LineArrowIcon } from "@/components/icons";
+import { SectionTitle } from "@/components/SectionTitle";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
-    Animated,
-    Image,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Animated,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -236,14 +239,16 @@ export default function HomeScreen() {
               There will be a thunderstorm in your area, better to turn off your
               solar panels.
             </Text>
-            <Ionicons name="arrow-forward" size={18} color={theme.white} />
+            <LineArrowIcon
+              color={theme.white}
+              size={20}
+              style={{ transform: [{ rotate: "180deg" }] }}
+            />
           </View>
         </View>
 
         {/* SUMMARY */}
-        <Text style={[styles.sectionTitle, { color: theme.text }]}>
-          Summery
-        </Text>
+        <SectionTitle title="Summary" marginHorizontal={20} />
 
         <View style={styles.summaryGrid}>
           {[
@@ -273,14 +278,12 @@ export default function HomeScreen() {
         </View>
 
         {/* BEST OFFER */}
-        <Text
-          style={[
-            styles.sectionTitle,
-            { color: theme.text, marginTop: 20, marginBottom: 0 },
-          ]}
-        >
-          Best Offers
-        </Text>
+        <SectionTitle
+          title="Best Offers"
+          marginHorizontal={20}
+          marginTop={20}
+          marginBottom={0}
+        />
         <View
           style={[
             styles.offerCard,
@@ -300,7 +303,7 @@ export default function HomeScreen() {
 
             {/* Arrow Icon */}
             <TouchableOpacity style={styles.offerArrow}>
-              <Ionicons name="chevron-forward" size={20} color={theme.white} />
+              <ArrowIcon color={theme.white} size={20} />
             </TouchableOpacity>
           </View>
 
@@ -315,15 +318,12 @@ export default function HomeScreen() {
               </Text>
             </View>
 
-            <TouchableOpacity
+            <AppButton
+              title="Book Now"
+              variant="outline"
               style={[styles.offerButton, { borderColor: theme.lightblue }]}
-            >
-              <Text
-                style={[styles.offerButtonText, { color: theme.lightblue }]}
-              >
-                Book Now
-              </Text>
-            </TouchableOpacity>
+              textStyle={[styles.offerButtonText, { color: theme.lightblue }]}
+            />
           </View>
         </View>
       </ScrollView>
@@ -475,12 +475,6 @@ const styles = StyleSheet.create({
     height: 28,
     backgroundColor: "#E0E0E0",
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "700",
-    marginHorizontal: 20,
-    marginBottom: 12,
-  },
   summaryGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -540,7 +534,6 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   offerButton: {
-    borderWidth: 1,
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 8,

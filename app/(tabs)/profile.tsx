@@ -1,3 +1,8 @@
+import { AppButton } from "@/components/AppButton";
+import { ArrowIcon } from "@/components/icons";
+import { ScreenHeader } from "@/components/ScreenHeader";
+import { SectionTitle } from "@/components/SectionTitle";
+import { SettingsItem } from "@/components/SettingsItem";
 import { Colors } from "@/constants/theme";
 import { useProfile } from "@/context/ProfileContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -49,9 +54,7 @@ export default function ProfileScreen() {
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       {/* HEADER */}
-      <View style={styles.header}>
-        <Text style={[styles.headerTitle, { color: theme.text }]}>Profile</Text>
-      </View>
+      <ScreenHeader title="Profile" />
 
       <ScrollView contentContainerStyle={styles.content}>
         {/* PROFILE CARD */}
@@ -75,123 +78,65 @@ export default function ProfileScreen() {
             </Text>
             <Text style={{ color: theme.systemgray }}>{profile.email}</Text>
           </View>
-          <Ionicons name="chevron-forward" size={20} color={theme.text} />
+          <ArrowIcon color={theme.text} size={20} />
         </TouchableOpacity>
 
-        <Text style={[styles.sectionTitle, { color: theme.text }]}>
-          Other Settings
-        </Text>
+        <SectionTitle title="Other Settings" style={styles.sectionTitle} />
 
         {PROFILE_ITEMS.map((item, index) => (
-          <TouchableOpacity
+          <SettingsItem
             key={index}
-            style={[
-              styles.row,
-              {
-                borderColor: isDark ? theme.borderdark : theme.borderlight,
-                backgroundColor: isDark ? theme.carddark : theme.cardlight,
-              },
-            ]}
+            label={item.label}
+            iconName={item.icon}
             onPress={() =>
               router.push(item.route ? (item.route as any) : "/not-found")
             }
-          >
-            <View style={styles.rowLeft}>
-              <Ionicons
-                name={item.icon}
-                size={20}
-                color={theme.white}
-                style={[
-                  styles.icon,
-                  {
-                    backgroundColor: isDark
-                      ? theme.lightblue
-                      : theme.systemblue,
-                  },
-                ]}
-              />
-              <Text style={[styles.rowText, { color: theme.text }]}>
-                {item.label}
-              </Text>
-            </View>
-            <Ionicons
-              name="chevron-forward"
-              size={18}
-              color={theme.systemgray}
-            />
-          </TouchableOpacity>
+          />
         ))}
 
         {/* THEME MODE */}
-        <View
-          style={[
-            styles.row,
-            {
-              borderColor: isDark ? theme.borderdark : theme.borderlight,
-              backgroundColor: isDark ? theme.carddark : theme.cardlight,
-            },
-          ]}
-        >
-          <View style={styles.rowLeft}>
-            <Ionicons
-              name={isDark ? "sunny-outline" : "moon-outline"}
-              size={20}
-              color={theme.white}
+        <SettingsItem
+          label={isDark ? "Light Mode" : "Dark Mode"}
+          iconName={isDark ? "sunny-outline" : "moon-outline"}
+          showChevron={false}
+          rightComponent={
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={toggleTheme}
               style={[
-                styles.icon,
+                styles.customToggle,
                 {
-                  backgroundColor: isDark ? theme.lightblue : theme.systemblue,
+                  backgroundColor: isDark ? theme.lightblue : theme.systemgray,
                 },
               ]}
-            />
-            <Text style={[styles.rowText, { color: theme.text }]}>
-              {isDark ? "Light Mode" : "Dark Mode"}
-            </Text>
-          </View>
-
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={toggleTheme}
-            style={[
-              styles.customToggle,
-              { backgroundColor: isDark ? theme.lightblue : theme.systemgray },
-            ]}
-          >
-            <View style={styles.toggleIcons}>
-              <Ionicons
-                name="sunny-outline"
-                size={14}
-                color={theme.white}
-                style={{ opacity: isDark ? 1 : 0 }}
+            >
+              <View style={styles.toggleIcons}>
+                <Ionicons
+                  name="sunny-outline"
+                  size={14}
+                  color={theme.white}
+                  style={{ opacity: isDark ? 1 : 0 }}
+                />
+                <Ionicons
+                  name="moon-outline"
+                  size={14}
+                  color={theme.white}
+                  style={{ opacity: isDark ? 0 : 1 }}
+                />
+              </View>
+              <Animated.View
+                style={[
+                  styles.toggleThumb,
+                  {
+                    transform: [{ translateX }],
+                  },
+                ]}
               />
-              <Ionicons
-                name="moon-outline"
-                size={14}
-                color={theme.white}
-                style={{ opacity: isDark ? 0 : 1 }}
-              />
-            </View>
-            <Animated.View
-              style={[
-                styles.toggleThumb,
-                {
-                  transform: [{ translateX }],
-                },
-              ]}
-            />
-          </TouchableOpacity>
-        </View>
+            </TouchableOpacity>
+          }
+        />
 
-        <TouchableOpacity
-          style={[
-            styles.logoutBtn,
-            { backgroundColor: isDark ? theme.systemblue : theme.blue },
-          ]}
-        >
-          <Text style={[styles.logoutText, { color: theme.white }]}>
-            Log Out
-          </Text>
-        </TouchableOpacity>
+        <AppButton title="Log Out" variant="logout" />
       </ScrollView>
     </View>
   );
@@ -202,17 +147,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 12,
     paddingHorizontal: 16,
     paddingTop: 50,
     paddingBottom: 12,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "700",
   },
   content: {
     padding: 16,
@@ -239,33 +176,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginBottom: 10,
   },
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 14,
-    borderRadius: 10,
-    borderWidth: 1,
-    marginBottom: 10,
-  },
-  icon: {
-    padding: 8,
-    borderRadius: 4,
-  },
-  rowLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
   rowText: {
     fontSize: 14,
     fontWeight: "500",
-  },
-  logoutBtn: {
-    marginTop: 24,
-    paddingVertical: 14,
-    borderRadius: 10,
-    alignItems: "center",
   },
   logoutText: {
     fontWeight: "700",

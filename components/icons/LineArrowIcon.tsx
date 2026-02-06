@@ -6,7 +6,7 @@ interface IconProps extends SvgProps {
   color?: string;
 }
 
-const InstallationIcon: React.FC<IconProps> = ({
+const LineArrowIcon: React.FC<IconProps> = ({
   size = 24,
   color = "#000",
   ...props
@@ -14,17 +14,20 @@ const InstallationIcon: React.FC<IconProps> = ({
   <Svg
     width={size}
     height={size}
-    viewBox="0 0 24 24"
+    viewBox="-1 -1 26 26"
     fill="none"
     stroke={color}
-    strokeWidth={1.2}
+    strokeWidth={3}
     strokeLinecap="round"
     strokeLinejoin="round"
     {...props}
   >
-    {/* Wrench */}
-    <Path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77z" />
+    {/* Horizontal line */}
+    <Path d="M22 12H4" />
+
+    {/* Arrow head */}
+    <Path d="M10 6L4 12l6 6" />
   </Svg>
 );
 
-export default InstallationIcon;
+export default LineArrowIcon;

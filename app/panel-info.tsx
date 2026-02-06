@@ -1,18 +1,20 @@
-import { EnergyIcon } from "@/components/icons";
+import { AppButton } from "@/components/AppButton";
+import { ArrowIcon, EnergyIcon } from "@/components/icons";
+import { ScreenHeader } from "@/components/ScreenHeader";
+import { SectionTitle } from "@/components/SectionTitle";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
 import { AntDesign, Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import {
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 //  CUSTOM SVG ICONS
 
@@ -75,7 +77,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function PanelInfoScreen() {
   const { theme: themeName, isDark } = useTheme();
   const theme = Colors[themeName];
-  const router = useRouter();
 
   const STATS = [
     {
@@ -117,22 +118,9 @@ export default function PanelInfoScreen() {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       {/* HEADER */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={styles.backButton}
-        >
-          <Ionicons name="arrow-back" size={24} color={theme.text} />
-        </TouchableOpacity>
-
-        <Text style={[styles.headerTitle, { color: theme.text }]}>
-          {params.name}
-        </Text>
-      </View>
+      <ScreenHeader title={params.name as string} showBackButton />
 
       <ScrollView contentContainerStyle={styles.content}>
         {/* PANEL STATUS BADGE */}
@@ -204,11 +192,9 @@ export default function PanelInfoScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* PERFORMANCE */}
+        {/* PERFORMANCE CHART SECTION */}
         <View style={styles.sectionHeader}>
-          <Text style={[styles.sectionTitle, { color: theme.text }]}>
-            Performance Monitoring
-          </Text>
+          <SectionTitle title="Performance Monitoring" marginBottom={0} />
           <TouchableOpacity>
             <Text style={[styles.manageText, { color: theme.systemgray }]}>
               Manage
@@ -245,7 +231,11 @@ export default function PanelInfoScreen() {
               <Text style={[styles.powerLimitText, { color: theme.text }]}>
                 Set power limit
               </Text>
-              <Ionicons name="chevron-down" size={10} color={theme.text} />
+              <ArrowIcon
+                color={theme.text}
+                size={10}
+                style={{ transform: [{ rotate: "90deg" }] }}
+              />
             </View>
           </View>
 
@@ -366,7 +356,19 @@ export default function PanelInfoScreen() {
                   />
                 </View>
               </View>
-              <TouchableOpacity
+              <AppButton
+                title="Invite Now"
+                variant="outline"
+                style={[
+                  styles.inviteBtn,
+                  {
+                    borderColor: theme.white,
+                    backgroundColor: theme.opacitywhite,
+                  },
+                ]}
+                textStyle={[styles.inviteBtnText, { color: theme.white }]}
+              />
+              {/* <TouchableOpacity
                 style={[
                   styles.inviteBtn,
                   {
@@ -378,32 +380,18 @@ export default function PanelInfoScreen() {
                 <Text style={[styles.inviteBtnText, { color: theme.white }]}>
                   Invite Now
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
         </TouchableOpacity>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    height: 56,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 16,
-  },
-  backButton: {
-    position: "absolute",
-    left: 16,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
   },
   content: {
     padding: 16,
@@ -468,10 +456,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 12,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: "700",
   },
   manageText: {
     fontSize: 12,

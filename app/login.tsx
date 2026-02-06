@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { AppButton } from "@/components/AppButton";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
 import { LoginFormData, useLoginForm } from "@/hooks/useLoginForm";
@@ -9,15 +10,15 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Controller, SubmitHandler } from "react-hook-form";
 import {
-    Dimensions,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -213,22 +214,15 @@ export default function LoginScreen() {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity
-              style={[
-                styles.loginButton,
-                { backgroundColor: isDark ? theme.lightblue : theme.blue },
-              ]}
+            <AppButton
+              title="Log In"
               onPress={handleSubmit(onSubmit)}
-            >
-              <Text
-                style={[
-                  styles.loginButtonText,
-                  { color: isDark ? theme.black : theme.white },
-                ]}
-              >
-                Log In
-              </Text>
-            </TouchableOpacity>
+              style={styles.loginButton}
+              textStyle={[
+                styles.loginButtonText,
+                { color: isDark ? theme.black : theme.white },
+              ]}
+            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -341,12 +335,6 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     height: 55,
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
   },
   loginButtonText: {
     fontSize: 18,
