@@ -240,7 +240,7 @@ export default function PanelScreen() {
                 iconName="LineArrowIcon"
                 iconSize={16}
                 iconColor={theme.white}
-                iconStyle={{ transform: [{ rotate: "180deg" }] }}
+                iconStyle={{ transform: [{ rotate: "135deg" }] }}
                 style={[
                   styles.viewButton,
                   {

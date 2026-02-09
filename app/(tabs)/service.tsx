@@ -178,7 +178,7 @@ export default function ServiceScreen() {
               ]}
             >
               <item.icon
-                size={22}
+                size={28}
                 color={theme.text}
                 style={{ marginBottom: 6 }}
               />

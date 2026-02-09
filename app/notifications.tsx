@@ -157,7 +157,7 @@ export default function NotificationsScreen() {
         </Text>
       </View>
 
-      <Text style={[styles.desc, { color: theme.gray }]}>{item.desc}</Text>
+      <Text style={[styles.desc, { color: theme.text }]}>{item.desc}</Text>
       <TouchableOpacity
         onPress={() => {
           console.log("Action clicked:", item.action);

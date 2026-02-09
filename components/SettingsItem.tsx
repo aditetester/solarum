@@ -33,7 +33,7 @@ export const SettingsItem: React.FC<SettingsItemProps> = ({
       style={[
         styles.container,
         {
-          borderColor: isDark ? theme.borderdark : theme.borderlight,
+          borderColor: isDark ? theme.white : theme.systemgray,
           backgroundColor: isDark ? theme.carddark : theme.cardlight,
         },
       ]}

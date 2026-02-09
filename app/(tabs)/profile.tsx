@@ -100,7 +100,7 @@ export default function ProfileScreen() {
           style={[
             styles.profileCard,
             {
-              borderColor: isDark ? theme.borderdark : theme.borderlight,
+              borderColor: isDark ? theme.white : theme.systemgray,
               backgroundColor: isDark ? theme.carddark : theme.cardlight,
             },
           ]}

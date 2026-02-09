@@ -207,9 +207,9 @@ export default function HomeScreen() {
           <View style={styles.solarStats}>
             <View style={styles.statsRow}>
               {[
-                { label: "Solar", value: "3.58 kW" },
-                { label: "Grid", value: "4.46 kW" },
-                { label: "Battery", value: "1.57 kW" },
+                { label: "Solar", value: "3.58 kw" },
+                { label: "Grid", value: "4.46 kw" },
+                { label: "Battery", value: "1.57 kw" },
               ].map((item, index) => (
                 <React.Fragment key={item.label}>
                   <View style={styles.statItem}>
