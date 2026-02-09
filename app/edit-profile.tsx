@@ -2,11 +2,18 @@ import { AppButton } from "@/components/AppButton";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { Colors } from "@/constants/theme";
 import { useProfile } from "@/context/ProfileContext";
-import { Ionicons } from "@expo/vector-icons";
+
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import {
+  AddIcon,
+  EditIcon,
+  EmailIcon,
+  LocationIcon,
+  PhoneIcon,
+} from "@/components/icons";
 import { useTheme } from "@/context/ThemeContext";
 import {
   Alert,
@@ -45,7 +52,7 @@ export default function EditProfileScreen() {
   const renderInput = (
     label: string,
     value: string,
-    icon: React.ComponentProps<typeof Ionicons>["name"],
+    icon: React.ReactNode,
     onChange: (v: string) => void,
     props?: any,
   ) => (
@@ -78,9 +85,7 @@ export default function EditProfileScreen() {
         </View>
 
         {/* ICON */}
-        <View style={styles.iconWrapper}>
-          <Ionicons name={icon} size={20} color={theme.systemgray} />
-        </View>
+        <View style={styles.iconWrapper}>{icon}</View>
       </View>
     </View>
   );
@@ -110,19 +115,22 @@ export default function EditProfileScreen() {
                 { borderColor: isDark ? theme.white : theme.black },
               ]}
             >
-              <Ionicons name="add" size={16} color={theme.white} />
+              <AddIcon size={16} color={theme.white} />
             </TouchableOpacity>
           </View>
 
           {/* INPUTS */}
-          {renderInput("Full Name", profile.name, "create-outline", (v) =>
-            setProfile({ ...profile, name: v }),
+          {renderInput(
+            "Full Name",
+            profile.name,
+            <EditIcon size={20} color={theme.systemgray} />,
+            (v) => setProfile({ ...profile, name: v }),
           )}
 
           {renderInput(
             "E-mail",
             profile.email,
-            "mail-outline",
+            <EmailIcon size={20} color={theme.systemgray} />,
             (v) => setProfile({ ...profile, email: v }),
             { keyboardType: "email-address" },
           )}
@@ -130,7 +138,7 @@ export default function EditProfileScreen() {
           {renderInput(
             "Phone",
             profile.phone,
-            "call-outline",
+            <PhoneIcon size={20} color={theme.systemgray} />,
             (v) => setProfile({ ...profile, phone: v }),
             { keyboardType: "phone-pad" },
           )}
@@ -138,7 +146,7 @@ export default function EditProfileScreen() {
           {renderInput(
             "Address",
             profile.address,
-            "location-outline",
+            <LocationIcon size={20} color={theme.systemgray} />,
             (v) => setProfile({ ...profile, address: v }),
             { multiline: true },
           )}

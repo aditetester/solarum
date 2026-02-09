@@ -1,8 +1,13 @@
-import { CameraIcon, SendMsgIcon } from "@/components/icons";
+import {
+  AttachIcon,
+  CameraIcon,
+  CloseIcon,
+  EllipsisVerticalIcon,
+  SendMsgIcon,
+} from "@/components/icons";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import React, { useRef, useState } from "react";
 import {
@@ -303,7 +308,7 @@ export default function FeedbackScreen() {
         showBackButton
         rightComponent={
           <TouchableOpacity style={styles.headerBtn}>
-            <Ionicons name="ellipsis-vertical" size={24} color={theme.text} />
+            <EllipsisVerticalIcon size={24} color={theme.text} />
           </TouchableOpacity>
         }
       />
@@ -383,7 +388,7 @@ export default function FeedbackScreen() {
               },
             ]}
           >
-            <Ionicons name="attach" size={22} color={theme.text} />
+            <AttachIcon size={18} color={theme.text} />
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -404,7 +409,7 @@ export default function FeedbackScreen() {
             style={styles.galleryClose}
             onPress={() => setGalleryVisible(false)}
           >
-            <Ionicons name="close" size={30} color={isDark ? "#FFF" : "#000"} />
+            <CloseIcon size={30} color={theme.text} />
           </TouchableOpacity>
 
           <FlatList

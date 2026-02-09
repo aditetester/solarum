@@ -25,6 +25,7 @@ function RootLayoutContent() {
           <Stack.Screen name="logo" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding" options={{ headerShown: false }} />
           <Stack.Screen name="login" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" options={{ headerShown: false }} />
           <Stack.Screen name="notifications" options={{ headerShown: false }} />
           <Stack.Screen name="panel-info" options={{ headerShown: false }} />
           <Stack.Screen name="blog" options={{ headerShown: false }} />

@@ -110,22 +110,6 @@ export default function ReportScreen() {
               </Text>
             </View>
           </View>
-          {/* <View style={styles.infoSection}>
-            <View style={styles.profileIconLabel}>
-              <Text style={[styles.infoLabel, { color: theme.gray }]}>
-                Profile
-              </Text>
-              <Ionicons
-                name="settings-outline"
-                size={14}
-                color={theme.gray}
-                style={{ marginLeft: 4 }}
-              />
-            </View>
-            <Text style={[styles.infoValue, { color: theme.text }]}>
-              Self - Consumption
-            </Text>
-          </View> */}
         </View>
 
         <View style={styles.powerFlowContainer}>

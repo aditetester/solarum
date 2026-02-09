@@ -1,10 +1,9 @@
 import { AppButton } from "@/components/AppButton";
-import { ArrowIcon, EnergyIcon } from "@/components/icons";
+import { ArrowIcon, CheckmarkIcon, EnergyIcon } from "@/components/icons";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { SectionTitle } from "@/components/SectionTitle";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import {
@@ -217,13 +216,13 @@ export default function PanelScreen() {
 
               {/* FEATURES */}
               <View style={styles.featureItem}>
-                <Ionicons name="checkmark" size={12} color={theme.white} />
+                <CheckmarkIcon color={theme.white} size={12} />
                 <Text style={[styles.featureText, { color: theme.white }]}>
                   Small Size Panel
                 </Text>
               </View>
               <View style={styles.featureItem}>
-                <Ionicons name="checkmark" size={12} color={theme.white} />
+                <CheckmarkIcon color={theme.white} size={12} />
                 <Text style={[styles.featureText, { color: theme.white }]}>
                   Ideal for tinny house
                 </Text>

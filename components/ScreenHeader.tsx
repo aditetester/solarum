@@ -1,10 +1,10 @@
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { LineArrowIcon } from "./icons";
 
 interface ScreenHeaderProps {
   title: string;
@@ -39,7 +39,7 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
       <View style={styles.leftContainer}>
         {showBackButton && (
           <TouchableOpacity onPress={handleBackPress} style={styles.iconButton}>
-            <Ionicons name="arrow-back" size={24} color={theme.text} />
+            <LineArrowIcon color={theme.text} size={24} />
           </TouchableOpacity>
         )}
       </View>

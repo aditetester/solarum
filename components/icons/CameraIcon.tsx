@@ -1,38 +1,18 @@
 import React from "react";
-import Svg, { Circle, Path, SvgProps } from "react-native-svg";
+import Svg, { Circle, Path } from "react-native-svg";
 
-interface IconProps extends SvgProps {
-  size?: number;
-  color?: string;
-}
-
-const CameraIcon: React.FC<IconProps> = ({
-  size = 24,
-  color = "#000",
-  ...props
-}) => (
-  <Svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
+const CameraIcon = ({ size = 24, color = "#000", strokeWidth = 2 }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
     {/* Camera body */}
     <Path
-      d="M4 7a3 3 0 0 1 3-3h3l2-2h4l2 1h3a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V7z"
-      transform="scale(1.1 1.1) translate(-2.5 -2)"
+      d="M4 7h3l2-2h6l2 2h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V9a2 2 0 012-2z"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
-
-    {/* Camera lens */}
-    <Circle cx="9" cy="11" r="4" />
-
-    {/* Flash / indicator dot */}
-    <Circle cx="18" cy="7" r="1" fill={color} stroke="none" />
+    {/* Lens */}
+    <Circle cx="12" cy="13" r="3.5" stroke={color} strokeWidth={strokeWidth} />
   </Svg>
 );
 

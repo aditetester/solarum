@@ -1,9 +1,9 @@
 import { BlogCard } from "@/components/BlogCard";
+import { SearchIcon } from "@/components/icons";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { BLOGS } from "@/constants/blogs";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
@@ -34,7 +34,7 @@ export default function BlogsScreen() {
           { backgroundColor: isDark ? theme.carddark : theme.cardlight },
         ]}
       >
-        <Ionicons name="search-outline" size={20} color={theme.systemgray} />
+        <SearchIcon color={theme.systemgray} size={20} />
         <TextInput
           style={[styles.searchInput, { color: theme.text }]}
           placeholder="Search blogs..."

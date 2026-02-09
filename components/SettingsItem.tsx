@@ -1,13 +1,13 @@
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ArrowIcon } from "./icons";
 
 interface SettingsItemProps {
   label: string;
-  iconName?: React.ComponentProps<typeof Ionicons>["name"];
+  icon?: React.ReactNode;
+  iconColor?: string;
   iconBackgroundColor?: string;
   onPress?: () => void;
   rightComponent?: React.ReactNode;
@@ -16,7 +16,8 @@ interface SettingsItemProps {
 
 export const SettingsItem: React.FC<SettingsItemProps> = ({
   label,
-  iconName,
+  icon,
+  iconColor,
   iconBackgroundColor,
   onPress,
   rightComponent,
@@ -41,17 +42,19 @@ export const SettingsItem: React.FC<SettingsItemProps> = ({
       activeOpacity={onPress ? 0.7 : 1}
     >
       <View style={styles.leftContent}>
-        {iconName && (
-          <Ionicons
-            name={iconName}
-            size={20}
-            color={theme.white}
+        {icon && (
+          <View
             style={[
               styles.icon,
               { backgroundColor: iconBackgroundColor || defaultIconBg },
             ]}
-          />
+          >
+            {React.cloneElement(icon as React.ReactElement<any>, {
+              color: iconColor || theme.white,
+            })}
+          </View>
         )}
+
         <Text style={[styles.label, { color: theme.text }]}>{label}</Text>
       </View>
 

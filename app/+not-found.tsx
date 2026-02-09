@@ -1,6 +1,5 @@
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -10,13 +9,6 @@ export default function NotFoundScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <Ionicons
-        name="alert-circle-outline"
-        size={80}
-        color={theme.lightblue}
-        style={{ marginBottom: 16 }}
-      />
-
       <Text style={[styles.title, { color: theme.text }]}>Page Not Found</Text>
 
       <Text style={[styles.desc, { color: theme.systemgray }]}>

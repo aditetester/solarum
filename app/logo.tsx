@@ -1,15 +1,15 @@
+import { ArrowIcon, LineArrowIcon } from "@/components/icons";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import React from "react";
 import {
-    Dimensions,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -24,22 +24,22 @@ export default function LogoScreen() {
     router.replace("/onboarding");
   };
 
-  //   const handleGetStarted = async () => {
-  //     try {
-  //       const value = await AsyncStorage.getItem("onboarding_completed");
-  //       if (value === "true") {
-  //         // If onboarding is already completed, go directly to login
-  //         router.replace("/login");
-  //       } else {
-  //         // Otherwise, show onboarding
-  //         router.replace("/onboarding");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error checking onboarding status:", error);
-  //       // Default to showing onboarding if there's an error
+  // const handleGetStarted = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem("onboarding_completed");
+  //     if (value === "true") {
+  //       // If onboarding is already completed, go directly to login
+  //       router.replace("/login");
+  //     } else {
+  //       // Otherwise, show onboarding
   //       router.replace("/onboarding");
   //     }
-  //   };
+  //   } catch (error) {
+  //     console.error("Error checking onboarding status:", error);
+  //     // Default to showing onboarding if there's an error
+  //     router.replace("/onboarding");
+  //   }
+  // };
 
   return (
     <SafeAreaView
@@ -76,10 +76,10 @@ export default function LogoScreen() {
               { backgroundColor: isDark ? theme.black : theme.white },
             ]}
           >
-            <Ionicons
-              name="arrow-forward"
-              size={18}
+            <LineArrowIcon
               color={isDark ? theme.lightblue : theme.blue}
+              size={18}
+              style={{ transform: [{ rotate: "180deg" }] }}
             />
           </View>
 
@@ -95,23 +95,20 @@ export default function LogoScreen() {
 
           {/* Right chevrons */}
           <View style={styles.doubleChevron}>
-            <Ionicons
-              name="chevron-forward"
+            <ArrowIcon
+              color={isDark ? theme.black : theme.white}
               size={18}
-              color={isDark ? theme.black : theme.white}
-              opacity={0.3}
+              style={{ opacity: 0.5 }}
             />
-            <Ionicons
-              name="chevron-forward"
+            <ArrowIcon
+              color={isDark ? theme.black : theme.white}
               size={22}
-              color={isDark ? theme.black : theme.white}
-              style={{ opacity: 0.6, marginLeft: -15 }}
+              style={{ opacity: 0.7, marginLeft: -15 }}
             />
-            <Ionicons
-              name="chevron-forward"
-              size={26}
+            <ArrowIcon
               color={isDark ? theme.black : theme.white}
-              style={styles.frontChevron}
+              size={26}
+              style={{ marginLeft: -18 }}
             />
           </View>
         </TouchableOpacity>
@@ -151,6 +148,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
+    marginLeft: -10,
   },
   buttonText: {
     flex: 1,

@@ -1,12 +1,12 @@
 import { AppButton } from "@/components/AppButton";
 import { Colors } from "@/constants/theme";
-import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 
+import { LineArrowIcon } from "@/components/icons";
 import { SectionTitle } from "@/components/SectionTitle";
 import { useTheme } from "@/context/ThemeContext";
 import {
@@ -132,12 +132,7 @@ export default function OnboardingScreen() {
         >
           {item.title}
         </Text> */}
-        <Text
-          style={[
-            styles.description,
-            { color: isDark ? theme.lightgray : theme.gray },
-          ]}
-        >
+        <Text style={[styles.description, { color: theme.text }]}>
           {item.description}
         </Text>
       </View>
@@ -169,21 +164,10 @@ export default function OnboardingScreen() {
       </View>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBack}>
-          <Ionicons
-            name="arrow-back"
-            size={24}
-            color={isDark ? theme.white : theme.black}
-          />
+          <LineArrowIcon size={24} color={theme.black} />
         </TouchableOpacity>
         <TouchableOpacity onPress={completeOnboarding}>
-          <Text
-            style={[
-              styles.skipText,
-              { color: isDark ? theme.white : theme.black },
-            ]}
-          >
-            Skip
-          </Text>
+          <Text style={[styles.skipText, { color: theme.black }]}>Skip</Text>
         </TouchableOpacity>
       </View>
 

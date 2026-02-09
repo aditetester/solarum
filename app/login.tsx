@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { AppButton } from "@/components/AppButton";
+import { CheckmarkIcon } from "@/components/icons";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
 import { LoginFormData, useLoginForm } from "@/hooks/useLoginForm";
-import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
@@ -103,16 +103,12 @@ export default function LoginScreen() {
                       styles.input,
                       {
                         backgroundColor: isDark ? theme.carddark : theme.white,
-                        borderColor: isDark
-                          ? theme.borderdark
-                          : theme.borderlight,
+                        borderColor: theme.systemgray,
                         color: isDark ? theme.white : theme.black,
                       },
                     ]}
                     placeholder="Enter Your ID"
-                    placeholderTextColor={
-                      isDark ? theme.placeholderdark : theme.placeholderlight
-                    }
+                    placeholderTextColor={theme.systemgray}
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
@@ -136,16 +132,12 @@ export default function LoginScreen() {
                       styles.input,
                       {
                         backgroundColor: isDark ? theme.carddark : theme.white,
-                        borderColor: isDark
-                          ? theme.borderdark
-                          : theme.borderlight,
+                        borderColor: theme.systemgray,
                         color: isDark ? theme.white : theme.black,
                       },
                     ]}
                     placeholder="Enter Your Password"
-                    placeholderTextColor={
-                      isDark ? theme.placeholderdark : theme.placeholderlight
-                    }
+                    placeholderTextColor={theme.systemgray}
                     secureTextEntry
                     onBlur={onBlur}
                     onChangeText={onChange}
@@ -173,9 +165,7 @@ export default function LoginScreen() {
                       style={[
                         styles.checkbox,
                         {
-                          borderColor: isDark
-                            ? theme.borderdark
-                            : theme.borderlight,
+                          borderColor: theme.systemgray,
                         },
                         value && {
                           backgroundColor: theme.tint,
@@ -183,19 +173,10 @@ export default function LoginScreen() {
                         },
                       ]}
                     >
-                      {value && (
-                        <Ionicons
-                          name="checkmark"
-                          size={14}
-                          color={theme.white}
-                        />
-                      )}
+                      {value && <CheckmarkIcon color={theme.white} size={14} />}
                     </View>
                     <Text
-                      style={[
-                        styles.rememberMeText,
-                        { color: isDark ? theme.lightgray : theme.gray },
-                      ]}
+                      style={[styles.rememberMeText, { color: theme.text }]}
                     >
                       Remember Me
                     </Text>
@@ -203,12 +184,7 @@ export default function LoginScreen() {
                 )}
               />
               <TouchableOpacity>
-                <Text
-                  style={[
-                    styles.forgotText,
-                    { color: isDark ? theme.lightgray : theme.gray },
-                  ]}
-                >
+                <Text style={[styles.forgotText, { color: theme.text }]}>
                   Forgot?
                 </Text>
               </TouchableOpacity>
@@ -218,10 +194,7 @@ export default function LoginScreen() {
               title="Log In"
               onPress={handleSubmit(onSubmit)}
               style={styles.loginButton}
-              textStyle={[
-                styles.loginButtonText,
-                { color: isDark ? theme.black : theme.white },
-              ]}
+              textStyle={[styles.loginButtonText, { color: theme.white }]}
             />
           </View>
         </ScrollView>

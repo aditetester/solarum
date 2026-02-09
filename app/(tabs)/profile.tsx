@@ -1,12 +1,22 @@
 import { AppButton } from "@/components/AppButton";
-import { ArrowIcon } from "@/components/icons";
+import {
+  ArrowIcon,
+  BillIcon,
+  BlogIcon,
+  FeedbackIcon,
+  HelpIcon,
+  LanguageIcon,
+  MoonIcon,
+  PhoneIcon,
+  TermsIcon,
+} from "@/components/icons";
+import SunnyIcon from "@/components/icons/SunIcon";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { SectionTitle } from "@/components/SectionTitle";
 import { SettingsItem } from "@/components/SettingsItem";
 import { Colors } from "@/constants/theme";
 import { useProfile } from "@/context/ProfileContext";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef } from "react";
 import {
@@ -21,18 +31,46 @@ import {
 
 type Item = {
   label: string;
-  icon: React.ComponentProps<typeof Ionicons>["name"];
+  icon: React.ReactNode;
   route?: string;
 };
 
 const PROFILE_ITEMS: Item[] = [
-  { label: "Blog", icon: "document-text-outline", route: "/blogs" },
-  { label: "Feedback", icon: "chatbox-ellipses-outline", route: "/feedback" },
-  { label: "Bill", icon: "receipt-outline", route: "/bill" },
-  { label: "Language", icon: "language-outline", route: "/language" },
-  { label: "Contact us", icon: "call-outline", route: "/contact" },
-  { label: "Help", icon: "help-circle-outline", route: "/help" },
-  { label: "Terms & Conditions", icon: "document-outline", route: "/terms" },
+  {
+    label: "Blog",
+    icon: <BlogIcon size={22} />,
+    route: "/blogs",
+  },
+  {
+    label: "Feedback",
+    icon: <FeedbackIcon size={22} />,
+    route: "/feedback",
+  },
+  {
+    label: "Bill",
+    icon: <BillIcon size={22} />,
+    route: "/bill",
+  },
+  {
+    label: "Language",
+    icon: <LanguageIcon size={22} />,
+    route: "/language",
+  },
+  {
+    label: "Contact us",
+    icon: <PhoneIcon size={22} />,
+    route: "/contact",
+  },
+  {
+    label: "Help",
+    icon: <HelpIcon size={22} />,
+    route: "/help",
+  },
+  {
+    label: "Terms & Conditions",
+    icon: <TermsIcon size={22} />,
+    route: "/terms",
+  },
 ];
 
 export default function ProfileScreen() {
@@ -87,7 +125,8 @@ export default function ProfileScreen() {
           <SettingsItem
             key={index}
             label={item.label}
-            iconName={item.icon}
+            icon={item.icon}
+            iconColor={theme.white}
             onPress={() =>
               router.push(item.route ? (item.route as any) : "/not-found")
             }
@@ -97,7 +136,13 @@ export default function ProfileScreen() {
         {/* THEME MODE */}
         <SettingsItem
           label={isDark ? "Light Mode" : "Dark Mode"}
-          iconName={isDark ? "sunny-outline" : "moon-outline"}
+          icon={
+            isDark ? (
+              <SunnyIcon color={theme.white} size={20} />
+            ) : (
+              <MoonIcon color={theme.white} size={20} />
+            )
+          }
           showChevron={false}
           rightComponent={
             <TouchableOpacity
@@ -111,18 +156,8 @@ export default function ProfileScreen() {
               ]}
             >
               <View style={styles.toggleIcons}>
-                <Ionicons
-                  name="sunny-outline"
-                  size={14}
-                  color={theme.white}
-                  style={{ opacity: isDark ? 1 : 0 }}
-                />
-                <Ionicons
-                  name="moon-outline"
-                  size={14}
-                  color={theme.white}
-                  style={{ opacity: isDark ? 0 : 1 }}
-                />
+                <SunnyIcon color={theme.white} size={14} />
+                <MoonIcon color={theme.white} size={14} />
               </View>
               <Animated.View
                 style={[
@@ -136,7 +171,11 @@ export default function ProfileScreen() {
           }
         />
 
-        <AppButton title="Log Out" variant="logout" />
+        <AppButton
+          title="Log Out"
+          variant="logout"
+          onPress={() => router.replace("/logo")}
+        />
       </ScrollView>
     </View>
   );

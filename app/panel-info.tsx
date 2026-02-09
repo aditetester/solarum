@@ -1,10 +1,18 @@
 import { AppButton } from "@/components/AppButton";
-import { ArrowIcon, EnergyIcon } from "@/components/icons";
+import {
+  ArrowIcon,
+  EnergyIcon,
+  PowerIcon,
+  RotateIcon,
+  ThermometerIcon,
+} from "@/components/icons";
+import ExpandOutlineIcon from "@/components/icons/ExpandOutlineIcon";
+import WifiIcon from "@/components/icons/WifiIcon";
+import WindIcon from "@/components/icons/WindIcon";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { SectionTitle } from "@/components/SectionTitle";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { AntDesign, Entypo, Fontisto, Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import {
@@ -89,19 +97,19 @@ export default function PanelInfoScreen() {
       id: "2",
       label: "Wi-Fi Speed",
       value: "55 mb/s",
-      icon: <Ionicons name="wifi" size={24} color={theme.white} />,
+      icon: <WifiIcon color={theme.white} />,
     },
     {
       id: "3",
       label: "Wind Speed",
       value: "140 m/s",
-      icon: <Fontisto name="wind" size={24} color={theme.white} />,
+      icon: <WindIcon color={theme.white} />,
     },
     {
       id: "4",
       label: "Temperature",
       value: "20°C",
-      icon: <Ionicons name="thermometer" size={24} color={theme.white} />,
+      icon: <ThermometerIcon color={theme.white} />,
     },
   ];
 
@@ -162,8 +170,7 @@ export default function PanelInfoScreen() {
               ]}
               onPress={() => handlePress("Expand")}
             >
-              <AntDesign name="expand-alt" size={20} color={theme.text} />
-              {/* <Ionicons name="expand-outline" size={20} color={theme.text} /> */}
+              <ExpandOutlineIcon color={theme.text} />
             </TouchableOpacity>
             <TouchableOpacity
               style={[
@@ -172,8 +179,7 @@ export default function PanelInfoScreen() {
               ]}
               onPress={() => handlePress("Rotate")}
             >
-              <Entypo name="cycle" size={20} color={theme.text} />
-              {/* <Ionicons name="refresh-outline" size={20} color={theme.text} /> */}
+              <RotateIcon color={theme.text} />
             </TouchableOpacity>
           </View>
 
@@ -184,11 +190,7 @@ export default function PanelInfoScreen() {
             ]}
             onPress={() => handlePress("Power")}
           >
-            <Ionicons
-              name="power"
-              size={20}
-              color={isDark ? theme.black : theme.white}
-            />
+            <PowerIcon color={theme.text} size={28} />
           </TouchableOpacity>
         </View>
 

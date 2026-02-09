@@ -1,9 +1,14 @@
 import { AppButton } from "@/components/AppButton";
-import { ArrowIcon, LineArrowIcon } from "@/components/icons";
+import {
+  ArrowIcon,
+  LineArrowIcon,
+  NotificationsIcon,
+  SearchIcon,
+  SolarPanelIcon,
+} from "@/components/icons";
 import { SectionTitle } from "@/components/SectionTitle";
 import { Colors } from "@/constants/theme";
 import { useTheme } from "@/context/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
@@ -73,7 +78,7 @@ export default function HomeScreen() {
               },
             ]}
           >
-            <Ionicons name="search" size={18} color={theme.placeholderlight} />
+            <SearchIcon color={theme.placeholderlight} size={18} />
             <TextInput
               placeholder="Search..."
               placeholderTextColor={theme.placeholderlight}
@@ -90,11 +95,7 @@ export default function HomeScreen() {
               },
             ]}
           >
-            <Ionicons
-              name="notifications-outline"
-              size={18}
-              color={theme.placeholderlight}
-            />
+            <NotificationsIcon size={20} color={theme.placeholderlight} />
           </TouchableOpacity>
         </View>
 
@@ -110,14 +111,19 @@ export default function HomeScreen() {
           <View style={styles.solarHeader}>
             {/* LEFT */}
             <View style={styles.solarLeft}>
-              <Image
-                source={
-                  isDark
-                    ? require("@/assets/images/home/panel-dark.png")
-                    : require("@/assets/images/home/panel.png")
-                }
-                style={styles.panelImage}
-              />
+              <View
+                style={{
+                  borderRadius: 4,
+                  borderWidth: 1,
+                  borderColor: theme.systemgray,
+                  padding: 4,
+                }}
+              >
+                <SolarPanelIcon
+                  color={isDark ? theme.lightblue : theme.blue}
+                  size={24}
+                />
+              </View>
               <View>
                 <Text
                   style={[
