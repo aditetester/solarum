@@ -36,6 +36,7 @@ export { default as RainIcon } from "./RainIcon";
 export { default as ReferEarnIcon } from "./ReferEarnIcon";
 export { default as ReportIcon } from "./ReportIcon";
 export { default as RotateIcon } from "./RotateIcon";
+export { default as RupeeIcon } from "./RupeeIcon";
 export { default as SaveIcon } from "./SaveIcon";
 export { default as SearchIcon } from "./SearchIcon";
 export { default as SendMsgIcon } from "./SendMsgIcon";

@@ -208,12 +208,17 @@ export default function ReportScreen() {
                       cx={xRight - 45}
                       cy={cy}
                       r="2.5"
-                      fill={isDark ? "#555" : "#999"}
+                      fill={isDark ? theme.borderlight : theme.systemgray}
                     />
 
                     {/* Central Junction Dot */}
-                    <Circle cx={cx} cy={cy} r="4" fill="#333" />
-                    <Circle cx={cx} cy={cy} r="2" fill="#666" />
+                    {/* <Circle cx={cx} cy={cy} r="4" fill="#333" /> */}
+                    <Circle
+                      cx={cx + 1}
+                      cy={cy}
+                      r="2.5"
+                      fill={isDark ? theme.borderlight : theme.systemgray}
+                    />
                   </>
                 );
               })()}

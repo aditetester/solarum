@@ -1,5 +1,10 @@
 import { AppButton } from "@/components/AppButton";
-import { ArrowIcon, CheckmarkIcon, EnergyIcon } from "@/components/icons";
+import {
+  ArrowIcon,
+  CheckmarkIcon,
+  EnergyIcon,
+  RupeeIcon,
+} from "@/components/icons";
 import { ScreenHeader } from "@/components/ScreenHeader";
 import { SectionTitle } from "@/components/SectionTitle";
 import { Colors } from "@/constants/theme";
@@ -230,7 +235,7 @@ export default function PanelScreen() {
 
               {/* PRICE */}
               <Text style={[styles.price, { color: theme.white }]}>
-                ₹ 1000 / Panel
+                <RupeeIcon color={theme.white} size={12} /> 1000 / Panel
               </Text>
 
               {/* BUTTON */}
