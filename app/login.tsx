@@ -2,6 +2,7 @@
 import { AppButton } from "@/components/AppButton";
 import { CheckmarkIcon } from "@/components/icons";
 import { Colors } from "@/constants/theme";
+import { useProfile } from "@/context/ProfileContext";
 import { useTheme } from "@/context/ThemeContext";
 import { LoginFormData, useLoginForm } from "@/hooks/useLoginForm";
 import { Image } from "expo-image";
@@ -30,9 +31,19 @@ export default function LoginScreen() {
   const router = useRouter();
 
   const { control, handleSubmit, errors } = useLoginForm();
+  const { updateProfile } = useProfile();
 
   const onSubmit: SubmitHandler<LoginFormData> = (data) => {
     console.log("Login Data:", data);
+
+    // Update profile with dynamic data based on login ID
+    updateProfile({
+      name: data.id,
+      email: `${data.id.toLowerCase().replace(/\s+/g, "")}@example.com`,
+      phone: "0123-456-789", // Default phone for now
+      address: "123, Solarum Street, Energy City, Earth", // Default address
+    });
+
     router.replace("/(tabs)");
   };
 
